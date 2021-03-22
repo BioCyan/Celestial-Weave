@@ -63,8 +63,8 @@ public class PortalCamera : MonoBehaviour {
 		for (int i = 0; i < portalDepth; i++) {
 			pos -= rightPortal.transform.position;
 			pos = rightToLeft * pos;
-			pos += rightPortal.transform.position;
-			rot = rot * rightToLeft;
+			pos += leftPortal.transform.position;
+			rot = rightToLeft * rot;
 
 			rightCameras[i].transform.position = pos;
 			rightCameras[i].transform.rotation = rot;
