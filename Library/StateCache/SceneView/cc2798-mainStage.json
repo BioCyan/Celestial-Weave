@@ -1,9 +1,1 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":-10.0,"y":-1.2200000286102296,"z":-18.850000381469728},"rotation":{"x":-0.013252109289169312,"y":0.9853004217147827,"z":-0.14322125911712647,"w":-0.09403533488512039},"size":5.012484550476074,"orthographic":false}
-=======
-﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":8.190957069396973,"y":-4.71935510635376,"z":11.742340087890625},"rotation":{"x":-0.1842276006937027,"y":-0.3107806444168091,"z":0.061135996133089069,"w":-0.9306567907333374},"size":10.0,"orthographic":false}
->>>>>>> 953cccc79b7fac21039a0f3b5d3abcddfba7842c
-=======
-﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":8.190957069396973,"y":-4.71935510635376,"z":11.742340087890625},"rotation":{"x":-0.1842276006937027,"y":-0.3107806444168091,"z":0.061135996133089069,"w":-0.9306567907333374},"size":10.0,"orthographic":false}
->>>>>>> 953cccc79b7fac21039a0f3b5d3abcddfba7842c
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":3.0741491317749025,"y":-6.96683406829834,"z":9.396744728088379},"rotation":{"x":-0.2997540533542633,"y":-0.05137431249022484,"z":0.0156418364495039,"w":-0.9526832103729248},"size":10.0,"orthographic":false}

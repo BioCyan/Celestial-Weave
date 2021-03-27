@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PortalCamera : MonoBehaviour {
 	[SerializeField] public GameObject cameraPrefab;
-	[SerializeField] public int portalDepth = 8;
+	[SerializeField] public int portalDepth = 1;
 
 	public GameObject[] leftCameras;
 	public GameObject[] rightCameras;
