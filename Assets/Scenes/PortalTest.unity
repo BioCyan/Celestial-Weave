@@ -685,7 +685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraPrefab: {fileID: 1249369083430669069, guid: 08fe155b6ba5dffdfbd2830286d28fbf,
     type: 3}
-  portalDepth: 1
+  portalDepth: 8
   leftCameras: []
   rightCameras: []
 --- !u!1 &1418167607
