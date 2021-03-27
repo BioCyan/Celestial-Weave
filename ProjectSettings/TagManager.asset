@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Left Portal
   - Right Portal
+  - Platform
   layers:
   - Default
   - TransparentFX
