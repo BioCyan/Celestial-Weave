@@ -36,7 +36,7 @@ public class PortalCamera : MonoBehaviour {
 		}
 	}
 
-	void Update() {
+	void UpdateCameras() {
 		leftPortal = GameObject.FindGameObjectWithTag("Left Portal");
 		rightPortal = GameObject.FindGameObjectWithTag("Right Portal");
 
@@ -72,6 +72,7 @@ public class PortalCamera : MonoBehaviour {
 	}
 
 	void OnPreRender() {
+		UpdateCameras();
 		Material leftMaterial = leftPortal.GetComponent<Renderer>().material;
 		for (int i = portalDepth - 1; i >= 0; i--) {
 			leftCameras[i].GetComponent<Camera>().Render();
