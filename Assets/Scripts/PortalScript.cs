@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PortalScript : MonoBehaviour {
-	[SerializeField] GameObject surface;
-	[SerializeField] GameObject colliderZone;
-	[SerializeField] GameObject colliderPrefab;
+	[SerializeField] public GameObject surface;
+	[SerializeField] public GameObject colliderZone;
+	[SerializeField] public GameObject colliderPrefab;
+	[SerializeField] public MeshRenderer backupMesh;
 	public GameObject otherPortal = null;
 	public int entrantLayer = 8;
 	public int colliderLayer = 10;
@@ -59,6 +60,7 @@ public class PortalScript : MonoBehaviour {
 
 				entrant.transform.position = pos;
 				entrant.transform.rotation = rot;
+				entrant.layer = otherPortal.GetComponent<PortalScript>().entrantLayer;
 				removals.Add(entrant);
 			}
 		}
@@ -76,6 +78,10 @@ public class PortalScript : MonoBehaviour {
 			if (entrant.GetComponent<Rigidbody>() != null && !entrants.Contains(entrant)) {
 				entrants.Add(entrant);
 				entrant.layer = entrantLayer;
+
+				if (entrant.tag.Equals("Player")) {
+					backupMesh.enabled = true;
+				}
 			}
 		}
 	}
@@ -87,6 +93,9 @@ public class PortalScript : MonoBehaviour {
 	}
 
 	void RemoveEntrant(GameObject entrant) {
+		if (entrant.tag.Equals("Player")) {
+			backupMesh.enabled = false;
+		}
 		entrants.Remove(entrant);
 		if (entrant.layer == entrantLayer) {
 			entrant.layer = 0;

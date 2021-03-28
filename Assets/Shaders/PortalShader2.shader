@@ -1,4 +1,4 @@
-﻿Shader "Unlit/PortalShader"
+﻿Shader "Unlit/PortalShader2"
 {
     Properties
     {
@@ -6,10 +6,11 @@
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" }
         LOD 100
-        
-        Offset -1, -1
+
+        Cull Front
+        ZTest Always
         
         Pass
         {
@@ -32,22 +33,28 @@
                 UNITY_FOG_COORDS(1)
                 float4 pos : SV_POSITION;
                 float4 screenPos : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
             };
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float4 globalPlane;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.screenPos = ComputeScreenPos(o.pos);
+                o.worldPos = v.vertex;
                 UNITY_TRANSFER_FOG(o,o.pos);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
+                // This is probably broken somehow.
+                clip(dot(globalPlane.xyz, i.worldPos) - globalPlane.w);
+                
                 float2 uv = i.screenPos.xy / i.screenPos.w;
                 uv = TRANSFORM_TEX(uv, _MainTex);
                 

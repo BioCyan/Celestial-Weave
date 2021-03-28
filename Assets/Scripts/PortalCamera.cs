@@ -73,9 +73,20 @@ public class PortalCamera : MonoBehaviour {
 
 	void OnPreRender() {
 		UpdateCameras();
+
+		MeshRenderer leftBackupMesh = leftPortal.GetComponent<PortalScript>().backupMesh;
+		MeshRenderer rightBackupMesh = rightPortal.GetComponent<PortalScript>().backupMesh;
+		bool leftOldActive = leftBackupMesh.enabled;
+		bool rightOldActive = rightBackupMesh.enabled;
+		//leftBackupMesh.enabled = false;
+		//rightBackupMesh.enabled = false;
+
+		Plane leftPlane = new Plane(-leftPortal.transform.forward, leftPortal.transform.position);
+		Plane rightPlane = new Plane(-rightPortal.transform.forward, rightPortal.transform.position);
+
 		Material leftMaterial = leftPortal.GetComponent<Renderer>().material;
-		Plane plane = new Plane(-rightPortal.transform.forward, rightPortal.transform.position);
-		Vector4 planeVector = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, -plane.distance);
+		Plane plane = rightPlane;
+		Vector4 planeVector = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
 		for (int i = portalDepth - 1; i >= 0; i--) {
 			Shader.SetGlobalVector("globalPlane", planeVector);
 			leftCameras[i].GetComponent<Camera>().Render();
@@ -83,9 +94,9 @@ public class PortalCamera : MonoBehaviour {
 			leftMaterial.mainTexture = leftTextures[i];
 		}
 
-		plane = new Plane(-leftPortal.transform.forward, leftPortal.transform.position);
-		planeVector = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, -plane.distance);
 		Material rightMaterial = rightPortal.GetComponent<Renderer>().material;
+		plane = leftPlane;
+		planeVector = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
 		for (int i = portalDepth - 1; i >= 0; i--) {
 			Shader.SetGlobalVector("globalPlane", planeVector);
 			rightCameras[i].GetComponent<Camera>().Render();
@@ -95,5 +106,10 @@ public class PortalCamera : MonoBehaviour {
 
 		Shader.SetGlobalVector("globalPlane", Vector4.zero);
 		RenderTexture.active = null;
+
+		leftBackupMesh.material.mainTexture = leftMaterial.mainTexture;
+		rightBackupMesh.material.mainTexture = rightMaterial.mainTexture;
+		leftBackupMesh.enabled = leftOldActive;
+		rightBackupMesh.enabled = rightOldActive;
 	}
 }
