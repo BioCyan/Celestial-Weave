@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MenuButtonController : MonoBehaviour 
+public class MenuButtonController : MonoBehaviour
 {
 
 	// Use this for initialization
@@ -14,19 +14,19 @@ public class MenuButtonController : MonoBehaviour
 	[SerializeField] int maxIndex;
 	public AudioSource audioSource;
 
-	void Start () 
+	void Start()
 	{
 		audioSource = GetComponent<AudioSource>();
 	}
-	
+
 	// Update is called once per frame
-	void Update () 
+	void Update()
 	{
 		if(Input.GetAxis ("Vertical") != 0)
 		{
 			if(!keyDown)
 			{
-				if (Input.GetAxis ("Vertical") < 0) 
+				if (Input.GetAxis ("Vertical") < 0)
 				{
 					if(index < maxIndex)
 					{
@@ -36,17 +36,16 @@ public class MenuButtonController : MonoBehaviour
 					{
 						index = 0;
 					}
-				} 
+				}
 				else if(Input.GetAxis ("Vertical") > 0)
 				{
 					if(index > 0)
 					{
-						index --; 
+						index--;
 					}
 					else
 					{
 						index = maxIndex;
-
 					}
 				}
 				keyDown = true;
@@ -72,18 +71,16 @@ public class MenuButtonController : MonoBehaviour
 		#if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 		#else
-        Application.Quit();
+		Application.Quit();
 		#endif
 	}
 
 	public void newGame()
 	{
-		
 		//PlayerPrefs.DeleteKey("PlayerHealth");
 		//PlayerPrefs.DeleteKey("PlayerSpeed");
 		//PlayerPrefs.DeleteKey("Level");
 		SceneManager.LoadScene(1);
-		
 	}
 	private void OnApplicationQuit()
 	{
