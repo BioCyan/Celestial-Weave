@@ -12,7 +12,7 @@ public class MenuButton : MonoBehaviour
 
 	// Update is called once per frame
 	void Update()
-    {
+	{
 		if(menuButtonController.index == thisIndex)
 		{
 			animator.SetBool ("selected", true);
@@ -21,12 +21,11 @@ public class MenuButton : MonoBehaviour
 				animator.SetBool ("pressed", true);
 				if (thisIndex == 0)
 				{
-					menuButtonController.newGame();	
+					menuButtonController.newGame();
 				}
-				else if (thisIndex == 2) 
+				else if (thisIndex == 2)
 				{
 					menuButtonController.quit();
-					
 				}
 			}
 			else if (animator.GetBool ("pressed"))

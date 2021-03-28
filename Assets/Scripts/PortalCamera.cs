@@ -74,18 +74,26 @@ public class PortalCamera : MonoBehaviour {
 	void OnPreRender() {
 		UpdateCameras();
 		Material leftMaterial = leftPortal.GetComponent<Renderer>().material;
+		Plane plane = new Plane(-rightPortal.transform.forward, rightPortal.transform.position);
+		Vector4 planeVector = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, -plane.distance);
 		for (int i = portalDepth - 1; i >= 0; i--) {
+			Shader.SetGlobalVector("globalPlane", planeVector);
 			leftCameras[i].GetComponent<Camera>().Render();
 
 			leftMaterial.mainTexture = leftTextures[i];
 		}
 
+		plane = new Plane(-leftPortal.transform.forward, leftPortal.transform.position);
+		planeVector = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, -plane.distance);
 		Material rightMaterial = rightPortal.GetComponent<Renderer>().material;
 		for (int i = portalDepth - 1; i >= 0; i--) {
+			Shader.SetGlobalVector("globalPlane", planeVector);
 			rightCameras[i].GetComponent<Camera>().Render();
 
 			rightMaterial.mainTexture = rightTextures[i];
 		}
+
+		Shader.SetGlobalVector("globalPlane", Vector4.zero);
 		RenderTexture.active = null;
 	}
 }
