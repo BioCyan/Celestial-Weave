@@ -9,6 +9,7 @@ public class MenuButton : MonoBehaviour
 	[SerializeField] AnimatorFunctions animatorFunctions;
 	[SerializeField] int thisIndex;
 	[SerializeField] bool clicked ;
+	[SerializeField] PauseController pauseController;
 
 	// Update is called once per frame
 	void Update()
@@ -16,12 +17,17 @@ public class MenuButton : MonoBehaviour
 		if(menuButtonController.index == thisIndex)
 		{
 			animator.SetBool ("selected", true);
-			if(Input.GetAxis ("Submit") == 1 || clicked )
+			if(Input.GetAxisRaw("Submit") == 1 || clicked )
 			{
 				animator.SetBool ("pressed", true);
 				if (thisIndex == 0)
 				{
+					Time.timeScale = 1;
 					menuButtonController.newGame();
+				}
+				else if (thisIndex == 1)
+				{
+					pauseController.TogglePause();
 				}
 				else if (thisIndex == 2)
 				{
