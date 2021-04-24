@@ -36,42 +36,62 @@ public class PortalCamera : MonoBehaviour {
 		}
 	}
 
-	void UpdateCameras() {
-		leftPortal = GameObject.FindGameObjectWithTag("Left Portal");
-		rightPortal = GameObject.FindGameObjectWithTag("Right Portal");
-
-		Vector3 pos = this.transform.position;
-		Quaternion rot = this.transform.rotation;
-		Quaternion leftToRight = rightPortal.transform.rotation
-			* Quaternion.Euler(0, 180, 0)
-			* Quaternion.Inverse(leftPortal.transform.rotation);
-		for (int i = 0; i < portalDepth; i++) {
-			pos -= leftPortal.transform.position;
-			pos = leftToRight * pos;
-			pos += rightPortal.transform.position;
-			rot = leftToRight * rot;
-
-			leftCameras[i].transform.position = pos;
-			leftCameras[i].transform.rotation = rot;
+	void Update() {
+		if (Input.GetButtonDown("Fire1")) {
+			leftPortal = ShootPortal(leftPortal, rightPortal);
+			if (leftPortal != null) {
+				InitLeftPortal();
+			}
 		}
-
-		pos = this.transform.position;
-		rot = this.transform.rotation;
-		Quaternion rightToLeft = leftPortal.transform.rotation
-			* Quaternion.Euler(0, 180, 0)
-			* Quaternion.Inverse(rightPortal.transform.rotation);
-		for (int i = 0; i < portalDepth; i++) {
-			pos -= rightPortal.transform.position;
-			pos = rightToLeft * pos;
-			pos += leftPortal.transform.position;
-			rot = rightToLeft * rot;
-
-			rightCameras[i].transform.position = pos;
-			rightCameras[i].transform.rotation = rot;
+		if (Input.GetButtonDown("Fire2")) {
+			rightPortal = ShootPortal(rightPortal, leftPortal);
+			if (rightPortal != null) {
+				InitRightPortal();
+			}
 		}
 	}
 
+	GameObject ShootPortal(GameObject oldPortal, GameObject otherPortal) {
+		RaycastHit hitInfo;
+		if (Physics.Raycast(transform.position, transform.forward, out hitInfo)) {
+			PortalSurface surface = hitInfo.collider.gameObject.GetComponent<PortalSurface>();
+			if (surface != null) {
+				GameObject portal = surface.placePortal(hitInfo.point, otherPortal);
+				if (portal != null) {
+					if (otherPortal != null) {
+						GameObject.Destroy(oldPortal);
+					}
+					return portal;
+				}
+			}
+		}
+		return oldPortal;
+	}
+
+	void InitLeftPortal() {
+		PortalScript script = leftPortal.GetComponent<PortalScript>();
+		script.otherPortal = rightPortal;
+		if (rightPortal != null) {
+			rightPortal.GetComponent<PortalScript>().otherPortal = leftPortal;
+		}
+		script.entrantLayer = 8;
+		script.colliderLayer = 10;
+	}
+
+	void InitRightPortal() {
+		PortalScript script = rightPortal.GetComponent<PortalScript>();
+		script.GetComponent<PortalScript>().otherPortal = leftPortal;
+		if (leftPortal != null) {
+			leftPortal.GetComponent<PortalScript>().otherPortal = rightPortal;
+		}
+		script.entrantLayer = 9;
+		script.colliderLayer = 11;
+	}
+
 	void OnPreRender() {
+		if (leftPortal == null || rightPortal == null) {
+			return;
+		}
 		UpdateCameras();
 
 		MeshRenderer leftBackupMesh = leftPortal.GetComponent<PortalScript>().backupMesh;
@@ -111,5 +131,37 @@ public class PortalCamera : MonoBehaviour {
 		rightBackupMesh.material.mainTexture = rightMaterial.mainTexture;
 		leftBackupMesh.enabled = leftOldActive;
 		rightBackupMesh.enabled = rightOldActive;
+	}
+
+	void UpdateCameras() {
+		Vector3 pos = this.transform.position;
+		Quaternion rot = this.transform.rotation;
+		Quaternion leftToRight = rightPortal.transform.rotation
+			* Quaternion.Euler(0, 180, 0)
+			* Quaternion.Inverse(leftPortal.transform.rotation);
+		for (int i = 0; i < portalDepth; i++) {
+			pos -= leftPortal.transform.position;
+			pos = leftToRight * pos;
+			pos += rightPortal.transform.position;
+			rot = leftToRight * rot;
+
+			leftCameras[i].transform.position = pos;
+			leftCameras[i].transform.rotation = rot;
+		}
+
+		pos = this.transform.position;
+		rot = this.transform.rotation;
+		Quaternion rightToLeft = leftPortal.transform.rotation
+			* Quaternion.Euler(0, 180, 0)
+			* Quaternion.Inverse(rightPortal.transform.rotation);
+		for (int i = 0; i < portalDepth; i++) {
+			pos -= rightPortal.transform.position;
+			pos = rightToLeft * pos;
+			pos += leftPortal.transform.position;
+			rot = rightToLeft * rot;
+
+			rightCameras[i].transform.position = pos;
+			rightCameras[i].transform.rotation = rot;
+		}
 	}
 }

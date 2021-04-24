@@ -7,6 +7,7 @@ public class PortalScript : MonoBehaviour {
 	[SerializeField] public GameObject colliderZone;
 	[SerializeField] public GameObject colliderPrefab;
 	[SerializeField] public MeshRenderer backupMesh;
+	[SerializeField] public float radius = 1;
 	public GameObject otherPortal = null;
 	public int entrantLayer = 8;
 	public int colliderLayer = 10;
