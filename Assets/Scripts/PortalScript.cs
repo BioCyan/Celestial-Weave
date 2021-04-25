@@ -13,20 +13,22 @@ public class PortalScript : MonoBehaviour {
 	public int colliderLayer = 10;
 
 	private HashSet<GameObject> entrants;
+	private List<GameObject> clippedColliders;
 
 	void Start() {
 		BoxCollider zone = colliderZone.GetComponent<BoxCollider>();
 		Vector3 center = colliderZone.transform.TransformPoint(zone.center);
 		Vector3 size = zone.size * 2;
 		Collider[] colliders = Physics.OverlapBox(center, size / 2, transform.rotation);
+		clippedColliders = new List<GameObject>();
 		foreach (Collider collider in colliders) {
-			if (collider is MeshCollider && collider.gameObject.GetComponent<Rigidbody>() == null) {
+			if (collider is MeshCollider && collider.gameObject.GetComponent<Rigidbody>() == null && collider.gameObject.layer != colliderLayer) {
 				if (collider.gameObject == surface) {
 					continue;
 				}
 
-				Vector3 relativePos = collider.gameObject.transform.InverseTransformPoint(transform.position);
 				Vector3 relativeDir = collider.gameObject.transform.InverseTransformDirection(-transform.forward);
+				Vector3 relativePos = collider.gameObject.transform.InverseTransformPoint(transform.position);
 				Plane plane = new Plane(relativeDir, relativePos);
 				Mesh newMesh = ClipMesh(plane, ((MeshCollider)collider).sharedMesh);
 
@@ -34,8 +36,15 @@ public class PortalScript : MonoBehaviour {
 				clippedCopy.GetComponent<MeshCollider>().sharedMesh = newMesh;
 				clippedCopy.layer = colliderLayer;
 				clippedCopy.SetActive(true);
+				clippedColliders.Add(clippedCopy);
 			}
 		}
+		Mesh holeMesh = DrillMesh(transform, surface.transform, surface.GetComponent<MeshCollider>().sharedMesh);
+		GameObject holeCollider = Object.Instantiate(colliderPrefab, surface.transform);
+		holeCollider.GetComponent<MeshCollider>().sharedMesh = holeMesh;
+		holeCollider.layer = colliderLayer;
+		holeCollider.SetActive(true);
+		clippedColliders.Add(holeCollider);
 
 		entrants = new HashSet<GameObject>();
 		gameObject.layer = entrantLayer;
@@ -103,6 +112,47 @@ public class PortalScript : MonoBehaviour {
 		}
 	}
 
+	Mesh DrillMesh(Transform portalFrame, Transform meshFrame, Mesh oldMesh) {
+		Vector3 relativePos = meshFrame.InverseTransformPoint(transform.position);
+		Vector3 relativeUp = meshFrame.InverseTransformDirection(portalFrame.up);
+		Vector3 relativeRight = meshFrame.InverseTransformDirection(portalFrame.right);
+		float xCenter = Vector3.Dot(relativePos, relativeRight);
+		float yCenter = Vector3.Dot(relativePos, relativeUp);
+
+		Mesh left = ClipMesh(new Plane(-relativeRight, xCenter - radius / meshFrame.localScale.x), oldMesh);
+		Mesh right = ClipMesh(new Plane(relativeRight, -xCenter - radius / meshFrame.localScale.x), oldMesh);
+		Mesh top = ClipMesh(new Plane(relativeUp, -yCenter - radius / meshFrame.localScale.y), oldMesh);
+		Mesh bottom = ClipMesh(new Plane(-relativeUp, yCenter - radius / meshFrame.localScale.y), oldMesh);
+
+		Mesh[] meshes = {left, right, top, bottom};
+		return MergeMeshes(meshes);
+	}
+
+	Mesh MergeMeshes(IEnumerable<Mesh> meshes) {
+		List<Vector3> vertices = new List<Vector3>();
+		List<int> indices = new List<int>();
+
+		int indexBase = 0;
+		foreach (Mesh mesh in meshes) {
+			Vector3[] oldVertices = mesh.vertices;
+			int[] oldTriangles = mesh.triangles;
+
+			foreach (Vector3 vertex in oldVertices) {
+				vertices.Add(vertex);
+			}
+			foreach (int index in oldTriangles) {
+				indices.Add(index + indexBase);
+			}
+
+			indexBase += oldVertices.Length;
+		}
+
+		Mesh newMesh = new Mesh();
+		newMesh.vertices = vertices.ToArray();
+		newMesh.triangles = indices.ToArray();
+		return newMesh;
+	}
+
 	Mesh ClipMesh(Plane plane, Mesh oldMesh) {
 		Vector3[] oldVertices = oldMesh.vertices;
 		int[] oldTriangles = oldMesh.triangles;
@@ -155,5 +205,11 @@ public class PortalScript : MonoBehaviour {
 
 		Vector3 result = (1 - t) * a + t * b;
 		return result;
+	}
+
+	public void Cleanup() {
+		foreach (GameObject collider in clippedColliders) {
+			GameObject.Destroy(collider);
+		}
 	}
 }
