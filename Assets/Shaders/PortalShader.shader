@@ -8,9 +8,9 @@
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
-        
+
         Offset -1, -1
-        
+
         Pass
         {
             CGPROGRAM
@@ -50,7 +50,7 @@
             {
                 float2 uv = i.screenPos.xy / i.screenPos.w;
                 uv = TRANSFORM_TEX(uv, _MainTex);
-                
+
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, uv);
                 // apply fog

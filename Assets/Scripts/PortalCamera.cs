@@ -56,9 +56,9 @@ public class PortalCamera : MonoBehaviour {
 		if (Physics.Raycast(transform.position, transform.forward, out hitInfo)) {
 			PortalSurface surface = hitInfo.collider.gameObject.GetComponent<PortalSurface>();
 			if (surface != null) {
-				GameObject portal = surface.placePortal(hitInfo.point, otherPortal);
+				GameObject portal = surface.PlacePortal(hitInfo.point, otherPortal);
 				if (portal != null) {
-					if (otherPortal != null) {
+					if (oldPortal != null) {
 						GameObject.Destroy(oldPortal);
 					}
 					return portal;
