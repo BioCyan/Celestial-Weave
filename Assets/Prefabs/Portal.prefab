@@ -108,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 7027390603978740737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 7027390605330758604}
   - {fileID: 7027390604646901086}
@@ -192,7 +192,7 @@ MonoBehaviour:
   colliderZone: {fileID: 7027390605330758607}
   colliderPrefab: {fileID: 7027390604646901073}
   backupMesh: {fileID: 2381353629821132648}
-  radius: 1
+  radius: 1.5
   otherPortal: {fileID: 0}
   entrantLayer: 8
   colliderLayer: 10
