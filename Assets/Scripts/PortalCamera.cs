@@ -98,29 +98,26 @@ public class PortalCamera : MonoBehaviour {
 
 		MeshRenderer leftBackupMesh = leftPortal.GetComponent<PortalScript>().backupMesh;
 		MeshRenderer rightBackupMesh = rightPortal.GetComponent<PortalScript>().backupMesh;
-		bool leftOldActive = leftBackupMesh.enabled;
-		bool rightOldActive = rightBackupMesh.enabled;
-		//leftBackupMesh.enabled = false;
-		//rightBackupMesh.enabled = false;
 
+		float epsilon = 0.05f;
 		Plane leftPlane = new Plane(-leftPortal.transform.forward, leftPortal.transform.position);
+		Vector4 leftPlaneVector = new Vector4(leftPlane.normal.x, leftPlane.normal.y, leftPlane.normal.z, leftPlane.distance + epsilon);
 		Plane rightPlane = new Plane(-rightPortal.transform.forward, rightPortal.transform.position);
+		Vector4 rightPlaneVector = new Vector4(rightPlane.normal.x, rightPlane.normal.y, rightPlane.normal.z, rightPlane.distance + epsilon);
 
 		Material leftMaterial = leftPortal.GetComponent<Renderer>().material;
-		Plane plane = rightPlane;
-		Vector4 planeVector = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
+		leftPortal.GetComponent<PortalScript>().UpdateEntrants();
+		Shader.SetGlobalVector("globalPlane", rightPlaneVector);
 		for (int i = portalDepth - 1; i >= 0; i--) {
-			Shader.SetGlobalVector("globalPlane", planeVector);
 			leftCameras[i].GetComponent<Camera>().Render();
 
 			leftMaterial.mainTexture = leftTextures[i];
 		}
 
 		Material rightMaterial = rightPortal.GetComponent<Renderer>().material;
-		plane = leftPlane;
-		planeVector = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
+		rightPortal.GetComponent<PortalScript>().UpdateEntrants();
+		Shader.SetGlobalVector("globalPlane", leftPlaneVector);
 		for (int i = portalDepth - 1; i >= 0; i--) {
-			Shader.SetGlobalVector("globalPlane", planeVector);
 			rightCameras[i].GetComponent<Camera>().Render();
 
 			rightMaterial.mainTexture = rightTextures[i];
@@ -131,8 +128,8 @@ public class PortalCamera : MonoBehaviour {
 
 		leftBackupMesh.material.mainTexture = leftMaterial.mainTexture;
 		rightBackupMesh.material.mainTexture = rightMaterial.mainTexture;
-		leftBackupMesh.enabled = leftOldActive;
-		rightBackupMesh.enabled = rightOldActive;
+		leftBackupMesh.enabled = leftPortal.GetComponent<PortalScript>().CameraNeedsBackup(transform.position);
+		rightBackupMesh.enabled = rightPortal.GetComponent<PortalScript>().CameraNeedsBackup(transform.position);
 	}
 
 	void UpdateCameras() {

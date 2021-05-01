@@ -52,8 +52,7 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // This is probably broken somehow.
-                clip(dot(globalPlane.xyz, i.worldPos) - globalPlane.w);
+                clip(-dot(globalPlane.xyz, i.worldPos) - globalPlane.w);
                 
                 float2 uv = i.screenPos.xy / i.screenPos.w;
                 uv = TRANSFORM_TEX(uv, _MainTex);

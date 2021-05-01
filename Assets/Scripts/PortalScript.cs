@@ -6,19 +6,20 @@ public class PortalScript : MonoBehaviour {
 	[SerializeField] public GameObject surface;
 	[SerializeField] public GameObject colliderZone;
 	[SerializeField] public GameObject colliderPrefab;
+	[SerializeField] public GameObject meshPrefab;
 	[SerializeField] public MeshRenderer backupMesh;
 	[SerializeField] public float radius = 1;
 	public GameObject otherPortal = null;
 	public int entrantLayer = 8;
 	public int colliderLayer = 10;
 
-	private HashSet<GameObject> entrants;
+	private Dictionary<GameObject, GameObject> entrants;
 	private List<GameObject> clippedColliders;
 
 	void Start() {
 		BoxCollider zone = colliderZone.GetComponent<BoxCollider>();
 		Vector3 center = colliderZone.transform.TransformPoint(zone.center);
-		Vector3 size = zone.size * 2;
+		Vector3 size = zone.size * 3;
 		Collider[] colliders = Physics.OverlapBox(center, size / 2, transform.rotation);
 		clippedColliders = new List<GameObject>();
 		foreach (Collider collider in colliders) {
@@ -46,7 +47,7 @@ public class PortalScript : MonoBehaviour {
 		holeCollider.SetActive(true);
 		clippedColliders.Add(holeCollider);
 
-		entrants = new HashSet<GameObject>();
+		entrants = new Dictionary<GameObject, GameObject>();
 		gameObject.layer = entrantLayer;
 	}
 
@@ -54,27 +55,15 @@ public class PortalScript : MonoBehaviour {
 		// Check for portal crossings
 		Plane portalPlane = new Plane(transform.forward, transform.position);
 		HashSet<GameObject> removals = new HashSet<GameObject>();
-		foreach (GameObject entrant in entrants) {
+		foreach (GameObject entrant in entrants.Keys) {
 			if (portalPlane.GetSide(entrant.transform.position)) {
-				Quaternion portalToPortal = otherPortal.transform.rotation
-					* Quaternion.Euler(0, 180, 0)
-					* Quaternion.Inverse(transform.rotation);
-
-				Vector3 pos = entrant.transform.position;
-				pos -= transform.position;
-				pos = portalToPortal * pos;
-				pos += otherPortal.transform.position;
-
-				Quaternion rot = entrant.transform.rotation;
-				rot = portalToPortal * rot;
-
-				entrant.transform.position = pos;
-				entrant.transform.rotation = rot;
+				portalTransform(entrant.transform);
 				entrant.layer = otherPortal.GetComponent<PortalScript>().entrantLayer;
 				removals.Add(entrant);
 			}
 		}
 		foreach (GameObject removal in removals) {
+			GameObject.Destroy(entrants[removal]);
 			RemoveEntrant(removal);
 		}
 
@@ -85,19 +74,24 @@ public class PortalScript : MonoBehaviour {
 		Collider[] colliders = Physics.OverlapBox(center, size / 2, transform.rotation);
 		foreach (Collider collider in colliders) {
 			GameObject entrant = collider.gameObject;
-			if (entrant.GetComponent<Rigidbody>() != null && !entrants.Contains(entrant)) {
-				entrants.Add(entrant);
+			if (
+				entrant.GetComponent<Rigidbody>() != null
+				&& entrant.GetComponent<MeshFilter>() != null
+				&& !entrants.ContainsKey(entrant)
+			) {
+				GameObject copy = GameObject.Instantiate(meshPrefab);
+				copy.transform.localScale = entrant.transform.localScale;
+				copy.GetComponent<MeshFilter>().sharedMesh = entrant.GetComponent<MeshFilter>().sharedMesh;
+				copy.GetComponent<Renderer>().sharedMaterial = entrant.GetComponent<Renderer>().sharedMaterial;
+				copy.SetActive(true);
+				entrants.Add(entrant, copy);
 				entrant.layer = entrantLayer;
-
-				if (entrant.tag.Equals("Player")) {
-					backupMesh.enabled = true;
-				}
 			}
 		}
 	}
 
 	void OnTriggerExit(Collider other) {
-		if (entrants.Contains(other.gameObject)) {
+		if (entrants.ContainsKey(other.gameObject)) {
 			RemoveEntrant(other.gameObject);
 		}
 	}
@@ -106,6 +100,7 @@ public class PortalScript : MonoBehaviour {
 		if (entrant.tag.Equals("Player")) {
 			backupMesh.enabled = false;
 		}
+		GameObject.Destroy(entrants[entrant]);
 		entrants.Remove(entrant);
 		if (entrant.layer == entrantLayer) {
 			entrant.layer = 0;
@@ -207,9 +202,70 @@ public class PortalScript : MonoBehaviour {
 		return result;
 	}
 
+	public void portalTransform(Transform frame) {
+		Quaternion portalToPortal = otherPortal.transform.rotation
+			* Quaternion.Euler(0, 180, 0)
+			* Quaternion.Inverse(transform.rotation);
+
+		Vector3 pos = frame.position;
+		pos -= transform.position;
+		pos = portalToPortal * pos;
+		pos += otherPortal.transform.position;
+
+		Quaternion rot = frame.rotation;
+		rot = portalToPortal * rot;
+
+		frame.position = pos;
+		frame.rotation = rot;
+	}
+
+	public bool CameraNeedsBackup(Vector3 camPos) {
+		Vector3 localPos = transform.InverseTransformPoint(camPos);
+		BoxCollider zone = GetComponent<BoxCollider>();
+		localPos -= zone.center;
+		Vector3 halfSize = zone.size / 2;
+		return localPos.x < halfSize.x
+			&& localPos.x > -halfSize.x
+			&& localPos.y < halfSize.y
+			&& localPos.y > -halfSize.y
+			&& localPos.z < halfSize.z
+			&& localPos.z > -halfSize.z;
+	}
+
+	public void UpdateEntrants() {
+		float epsilon = 0.05f;
+		Plane plane = new Plane(-transform.forward, transform.position);
+		Vector4 planeVector = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance + epsilon);
+		Plane otherPlane = new Plane(-otherPortal.transform.forward, otherPortal.transform.position);
+		Vector4 otherPlaneVector = new Vector4(otherPlane.normal.x, otherPlane.normal.y, otherPlane.normal.z, otherPlane.distance + epsilon);
+
+		foreach (GameObject entrant in entrants.Keys) {
+			MaterialPropertyBlock block = new MaterialPropertyBlock();
+			block.SetVector("localPlane", planeVector);
+			entrant.GetComponent<Renderer>().SetPropertyBlock(block);
+
+			GameObject copy = entrants[entrant];
+			copy.transform.position = entrant.transform.position;
+			copy.transform.rotation = entrant.transform.rotation;
+			portalTransform(copy.transform);
+
+			MaterialPropertyBlock copyBlock = new MaterialPropertyBlock();
+			block.SetVector("localPlane", otherPlaneVector);
+			copy.GetComponent<Renderer>().SetPropertyBlock(copyBlock);
+		}
+	}
+
 	public void Cleanup() {
 		foreach (GameObject collider in clippedColliders) {
 			GameObject.Destroy(collider);
+		}
+
+		HashSet<GameObject> removals = new HashSet<GameObject>();
+		foreach (GameObject entrant in entrants.Keys) {
+			removals.Add(entrant);
+		}
+		foreach (GameObject entrant in removals) {
+			RemoveEntrant(entrant);
 		}
 	}
 }
