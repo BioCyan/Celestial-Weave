@@ -49,6 +49,13 @@ public class PortalCamera : MonoBehaviour {
 				InitRightPortal();
 			}
 		}
+
+		/// ADDED CODE: Press [key] to "close" portals
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+			Destroy(leftPortal);
+			Destroy(rightPortal);
+        }
 	}
 
 	GameObject ShootPortal(GameObject oldPortal, GameObject otherPortal) {
