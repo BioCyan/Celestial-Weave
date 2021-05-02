@@ -54,17 +54,20 @@ public class PortalScript : MonoBehaviour {
 	void Update() {
 		// Check for portal crossings
 		Plane portalPlane = new Plane(transform.forward, transform.position);
-		HashSet<GameObject> removals = new HashSet<GameObject>();
-		foreach (GameObject entrant in entrants.Keys) {
-			if (portalPlane.GetSide(entrant.transform.position)) {
-				portalTransform(entrant.transform);
-				entrant.layer = otherPortal.GetComponent<PortalScript>().entrantLayer;
-				removals.Add(entrant);
+		if (otherPortal != null) {
+			HashSet<GameObject> removals = new HashSet<GameObject>();
+			foreach (GameObject entrant in entrants.Keys) {
+				if (portalPlane.GetSide(entrant.transform.position)) {
+					portalTransform(entrant.transform);
+					entrant.layer = otherPortal.GetComponent<PortalScript>().entrantLayer;
+					removals.Add(entrant);
+				}
 			}
-		}
-		foreach (GameObject removal in removals) {
-			GameObject.Destroy(entrants[removal]);
-			RemoveEntrant(removal);
+			foreach (GameObject removal in removals) {
+				GameObject.Destroy(entrants[removal]);
+				RemoveEntrant(removal);
+				otherPortal.GetComponent<PortalScript>().AddEntrant(removal);
+			}
 		}
 
 		// Add new entrants
@@ -74,18 +77,8 @@ public class PortalScript : MonoBehaviour {
 		Collider[] colliders = Physics.OverlapBox(center, size / 2, transform.rotation);
 		foreach (Collider collider in colliders) {
 			GameObject entrant = collider.gameObject;
-			if (
-				entrant.GetComponent<Rigidbody>() != null
-				&& entrant.GetComponent<MeshFilter>() != null
-				&& !entrants.ContainsKey(entrant)
-			) {
-				GameObject copy = GameObject.Instantiate(meshPrefab);
-				copy.transform.localScale = entrant.transform.localScale;
-				copy.GetComponent<MeshFilter>().sharedMesh = entrant.GetComponent<MeshFilter>().sharedMesh;
-				copy.GetComponent<Renderer>().sharedMaterial = entrant.GetComponent<Renderer>().sharedMaterial;
-				copy.SetActive(true);
-				entrants.Add(entrant, copy);
-				entrant.layer = entrantLayer;
+			if (entrant.GetComponent<Rigidbody>() != null && entrant.GetComponent<MeshFilter>() != null) {
+				AddEntrant(entrant);
 			}
 		}
 	}
@@ -96,7 +89,22 @@ public class PortalScript : MonoBehaviour {
 		}
 	}
 
+	void AddEntrant(GameObject entrant) {
+		if (!entrants.ContainsKey(entrant)) {
+			GameObject copy = GameObject.Instantiate(meshPrefab);
+			copy.transform.localScale = entrant.transform.localScale;
+			copy.GetComponent<MeshFilter>().sharedMesh = entrant.GetComponent<MeshFilter>().sharedMesh;
+			copy.GetComponent<Renderer>().sharedMaterial = entrant.GetComponent<Renderer>().sharedMaterial;
+			copy.SetActive(true);
+			entrants.Add(entrant, copy);
+			entrant.layer = entrantLayer;
+		}
+	}
+
 	void RemoveEntrant(GameObject entrant) {
+		if (entrant == null) {
+			return;
+		}
 		if (entrant.tag.Equals("Player")) {
 			backupMesh.enabled = false;
 		}
@@ -237,7 +245,7 @@ public class PortalScript : MonoBehaviour {
 		Plane plane = new Plane(-transform.forward, transform.position);
 		Vector4 planeVector = new Vector4(plane.normal.x, plane.normal.y, plane.normal.z, plane.distance + epsilon);
 		Plane otherPlane = new Plane(-otherPortal.transform.forward, otherPortal.transform.position);
-		Vector4 otherPlaneVector = new Vector4(otherPlane.normal.x, otherPlane.normal.y, otherPlane.normal.z, otherPlane.distance + epsilon);
+		Vector4 otherPlaneVector = new Vector4(otherPlane.normal.x, otherPlane.normal.y, otherPlane.normal.z, otherPlane.distance);
 
 		foreach (GameObject entrant in entrants.Keys) {
 			MaterialPropertyBlock block = new MaterialPropertyBlock();
@@ -250,12 +258,12 @@ public class PortalScript : MonoBehaviour {
 			portalTransform(copy.transform);
 
 			MaterialPropertyBlock copyBlock = new MaterialPropertyBlock();
-			block.SetVector("localPlane", otherPlaneVector);
+			copyBlock.SetVector("localPlane", otherPlaneVector);
 			copy.GetComponent<Renderer>().SetPropertyBlock(copyBlock);
 		}
 	}
 
-	public void Cleanup() {
+	public void OnDestroy() {
 		foreach (GameObject collider in clippedColliders) {
 			GameObject.Destroy(collider);
 		}

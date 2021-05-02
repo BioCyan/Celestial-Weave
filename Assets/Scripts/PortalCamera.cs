@@ -67,7 +67,6 @@ public class PortalCamera : MonoBehaviour {
 				GameObject portal = surface.PlacePortal(hitInfo.point, otherPortal);
 				if (portal != null) {
 					if (oldPortal != null) {
-						oldPortal.GetComponent<PortalScript>().Cleanup();
 						GameObject.Destroy(oldPortal);
 					}
 					return portal;
