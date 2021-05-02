@@ -8,12 +8,12 @@ public class PortalCamera : MonoBehaviour {
 
 	public GameObject[] leftCameras;
 	public GameObject[] rightCameras;
+	public GameObject leftPortal;
+	public GameObject rightPortal;
 
 	private RenderTexture[] leftTextures;
 	private RenderTexture[] rightTextures;
-	private GameObject leftPortal;
-	private GameObject rightPortal;
-
+	
 	void Start() {
 		leftCameras = new GameObject[portalDepth];
 		leftTextures = new RenderTexture[portalDepth];
