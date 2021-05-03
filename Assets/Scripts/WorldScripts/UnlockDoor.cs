@@ -50,8 +50,11 @@ public class UnlockDoor : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("OPEN SESAME");
-        if(other.gameObject == KeyObject)
+        if (other.gameObject == KeyObject)
+        {
+            DoorObject.GetComponent<AudioSource>().Play();
             StartCoroutine(ScaleToTargetCoroutine(targetScale, 2.5f));
+        }
     }
 
     private void OnTriggerExit(Collider other)

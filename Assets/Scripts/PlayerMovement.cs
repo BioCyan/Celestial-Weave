@@ -48,8 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotateThroughPortal()
     {
-        float epsilon = 0.01f;
-        float rotSpeed = 1.5f;
+        float epsilon = 0.01f, rotSpeed = 1.5f;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0), rotSpeed * Time.deltaTime);
         // Snap rotation if small enough difference
         if ((transform.rotation.x < epsilon && transform.rotation.x > -epsilon) && (transform.rotation.z < epsilon && transform.rotation.z > -epsilon))
