@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] bool isGrounded = true;
     [SerializeField] bool JumpUsed = false;
     private Animator anim;
+    [SerializeField] public AudioSource jumpSound;
 
     public float speed = 6;
     public float jumpIntensity = 40;
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
                 gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             }
             gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpIntensity, ForceMode.Impulse);
+            jumpSound.Play();
         }
 
         if (isGrounded && JumpUsed)
@@ -48,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
         Vector3 newMove = new Vector3(move.x, rigidBody.velocity.y, move.z);
-
         rigidBody.velocity = newMove;
     }
 

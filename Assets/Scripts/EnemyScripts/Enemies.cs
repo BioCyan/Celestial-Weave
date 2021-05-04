@@ -6,7 +6,7 @@ public class Enemies : MonoBehaviour
 {
     [SerializeField] public float health = 100f;
     [SerializeField] public float damage = 25f;
-    Player player;
+    [SerializeField] GameObject player;
 
     public void ReceivedDamage(float damage)
     {
@@ -17,7 +17,12 @@ public class Enemies : MonoBehaviour
 
     public void ReturnDamage()
     {
-        player.takeDamage(damage);
+        player.GetComponent<PlayerStats>().takeDamage(damage);
+    }
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame

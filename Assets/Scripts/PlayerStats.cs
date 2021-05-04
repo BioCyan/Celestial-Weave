@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class PlayerStats : MonoBehaviour
     private float lastRecharge = 0f;
     private float rechargeCoolDown = 1f;
     private int extraLife = 2;
+    [SerializeField] public AudioSource damageSound;
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +71,7 @@ public class PlayerStats : MonoBehaviour
                     newHealth = 0;
                 health = newHealth;
             }
-
+            damageSound.Play();
             imune = true;
             lastHit = Time.time;
         }
