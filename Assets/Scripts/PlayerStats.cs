@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class PlayerStats : MonoBehaviour
 {
     public float maxHealth = 100;
     public float health = 100;
@@ -10,20 +11,23 @@ public class Player : MonoBehaviour
     public float maxShield = 50;
     public float shield = 0;
 //    [SerializeField] Text shieldCounter;
-    public float maxEnergy = 100;
-    public float energy = 100;
+    //public float maxEnergy = 100;
+    //public float energy = 100;
 //    [SerializeField] Text energyCounter;
     [SerializeField] bool imune = false;
     [SerializeField] bool isDead = false;
     private float lastHit = 0f;
     private float imuneCoolDown = 0.5f;
+    private float lastRecharge = 0f;
+    private float rechargeCoolDown = 1f;
+    private int extraLife = 2;
 
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
         shield = maxShield;
-        energy = maxEnergy;
+        extraLife = 2;
     }
 
     // Update is called once per frame
@@ -31,6 +35,11 @@ public class Player : MonoBehaviour
     {
         if ((Time.time - lastHit) > imuneCoolDown)
             imune = false;
+        if (((Time.time - lastRecharge) > rechargeCoolDown) && shield < maxShield)
+        {
+            lastRecharge = Time.time;
+            rechargeShield(2);
+        }
         if ((health <= 0) && (isDead == false))
         {
             isDead = true;
@@ -82,12 +91,22 @@ public class Player : MonoBehaviour
             shield = newShield;
     }
 
-    public void rechargeEnergy(float rechargeVal)
+    public void playerDefeated()
     {
-            float newEnergy = energy + rechargeVal;
-            if (newEnergy > maxEnergy)
-                newEnergy = maxEnergy;
-            energy = newEnergy;
+        if(extraLife > 0)
+        {
+            //respawn
+            health = maxHealth;
+        }
+        else
+        {
+            gameOver();
+        }
+    }
+
+    public void gameOver()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

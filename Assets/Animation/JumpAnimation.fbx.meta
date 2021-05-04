@@ -1,0 +1,237 @@
+fileFormatVersion: 2
+guid: 6d64d7aba684d5b489d5309fb12f3c48
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      74: -2193656217048792745
+    second: Arms_Armeture|Arms_ArmetureAction
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: "Invalid copied Avatar Rig Configuration:\n\tNo human bone found.
+      Ensure both rig type match\n"
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: RoboManAnimation(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arms
+      parentName: RoboManAnimation(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 103.00708}
+    - name: Light
+      parentName: RoboManAnimation(Clone)
+      position: {x: -4.0762453, y: 5.903862, z: -1.005454}
+      rotation: {x: 0.52327543, y: -0.34203398, z: 0.72694236, w: 0.28416628}
+      scale: {x: 100.00001, y: 100, z: 100}
+    - name: Camera
+      parentName: RoboManAnimation(Clone)
+      position: {x: -7.3588915, y: 4.958309, z: 6.925791}
+      rotation: {x: 0.09062851, y: 0.89379627, z: -0.20997299, w: 0.3857799}
+      scale: {x: 100, y: 100.00001, z: 99.99999}
+    - name: Arms_Armeture
+      parentName: RoboManAnimation(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: CenterBone
+      parentName: Arms_Armeture
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: upperArm.r
+      parentName: CenterBone
+      position: {x: 0.033206154, y: 0, z: 0}
+      rotation: {x: 0.70659554, y: 0.69870406, z: -0.07888848, w: 0.079447575}
+      scale: {x: 1, y: 1, z: 1}
+    - name: lowerArm.r
+      parentName: upperArm.r
+      position: {x: 3.410605e-15, y: 0.037436057, z: 3.7252902e-11}
+      rotation: {x: 0.005575786, y: 0.00000005143819, z: -0.00000024041555, w: 0.99998444}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: hand.r
+      parentName: lowerArm.r
+      position: {x: 0.0000000010948247, y: 0.03583036, z: -3.055902e-12}
+      rotation: {x: 1.6908116e-17, y: 2e-44, z: -2.879912e-20, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand.r_end
+      parentName: hand.r
+      position: {x: -0, y: 0.015207071, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: upperArm.l
+      parentName: CenterBone
+      position: {x: -0.03333056, y: 0, z: 0}
+      rotation: {x: 0.70659894, y: -0.6987075, z: 0.078857996, w: 0.079417415}
+      scale: {x: 1, y: 1, z: 1}
+    - name: lowerArm.l
+      parentName: upperArm.l
+      position: {x: 3.410605e-15, y: 0.037436057, z: 3.7252902e-11}
+      rotation: {x: 0.005575786, y: 0.00000005143819, z: -0.00000024041555, w: 0.99998444}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: hand.l
+      parentName: lowerArm.l
+      position: {x: 0.0000000010948247, y: 0.03583036, z: -3.637979e-12}
+      rotation: {x: 1.6908116e-17, y: 2e-44, z: -2.879912e-20, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand.l_end
+      parentName: hand.l
+      position: {x: -0, y: 0.015207071, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: -1.0662844, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 222.06705, y: 100, z: 235.92732}
+    - name: Helmet
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: 3.9297493, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 197.7594, y: 177.70357, z: 207.6029}
+    - name: Visor
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: 4.022518, z: 1.1885144}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 139.75052, y: 71.83829, z: 113.239876}
+    - name: Breather
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: 3.2374697, z: 1.4540334}
+      rotation: {x: 0.2910495, y: 0, z: -0, w: 0.956708}
+      scale: {x: 47.84253, y: 22.237694, z: 27.12441}
+    - name: Fin
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: 5.652728, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 14.227412, y: 100, z: 118.505325}
+    - name: Siding
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: 4.022397, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 110.2322, y: 100, z: 118.505325}
+    - name: UpperPack
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: 0.12679826, z: -1.2744925}
+      rotation: {x: -0.5021142, y: 0.497877, z: -0.49787688, w: 0.5021141}
+      scale: {x: 118.51181, y: 100, z: 172.46814}
+    - name: LowerPack
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: -1.8150692, z: -0.96497273}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 170.92444, y: 100, z: 118.505325}
+    - name: Stomach
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: -4.986785, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 170.71811, y: 100, z: 118.505325}
+    - name: Thruster
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: -7.288209, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 110.2322, y: 100, z: 76.499344}
+    - name: Nozzle
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: -8.1034565, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 110.2322, y: 100, z: 118.505325}
+    - name: ThrusterBase
+      parentName: RoboManAnimation(Clone)
+      position: {x: -0.034433354, y: -6.766234, z: 0.0000000037252903}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 132.15585, y: 109.71428, z: 29.508505}
+    - name: Shoulders
+      parentName: RoboManAnimation(Clone)
+      position: {x: 0.00024763308, y: 0.12679826, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 110.2322, y: 100, z: 118.505325}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: d45ce23a15629574a85bdfa70b1233e3,
+    type: 3}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

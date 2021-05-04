@@ -7,12 +7,16 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rigidBody;
     [SerializeField] bool isGrounded = true;
     [SerializeField] bool JumpUsed = false;
+    private Animator anim;
 
     public float speed = 6;
     public float jumpIntensity = 40;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody>();
     }
 
@@ -21,9 +25,11 @@ public class PlayerMovement : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal") * speed;
         float z = Input.GetAxis("Vertical") * speed;
+        anim.SetFloat("Moving", z);
 
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || (!JumpUsed)))
         {
+            anim.SetTrigger("Jump");
             if (!isGrounded)
             {
                 JumpUsed = true;
