@@ -9,6 +9,7 @@ public class SlimeEnemy : MonoBehaviour
     public GameObject player;
     private NavMeshAgent agent;
     private Rigidbody rigidbody;
+    private Animator anim;
 
     public float health = 75f;
     public float damage = 85f;
@@ -22,17 +23,20 @@ public class SlimeEnemy : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        anim.Play("Taunt");
         // if player comes into distance than follow player
         distance = Vector3.Distance(player.transform.position, transform.position);
         if( distance <= minDistance )
         {
             transform.LookAt(player.transform.position);
             agent.destination = player.transform.position;
+            anim.Play("WalkFWD");
         }
         // if enemy health below 0 die
         if( health <= 0f )
@@ -51,6 +55,7 @@ public class SlimeEnemy : MonoBehaviour
     private void enemyDead()
     {
         // do dead animation
+        anim.Play("Die");
         Destroy(gameObject);
     }
 }
