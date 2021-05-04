@@ -62,6 +62,11 @@ public class PortalScript : MonoBehaviour {
 					portalTransformVelocity(entrant.GetComponent<Rigidbody>());
 					entrant.layer = otherPortal.GetComponent<PortalScript>().entrantLayer;
 					removals.Add(entrant);
+
+					if (entrant.tag == "Player") {
+						MeshRenderer backupMesh = otherPortal.GetComponent<PortalScript>().backupMesh;
+						backupMesh.enabled = true;
+					}
 				}
 			}
 			foreach (GameObject removal in removals) {
@@ -100,6 +105,7 @@ public class PortalScript : MonoBehaviour {
 			entrants.Add(entrant, copy);
 			entrant.layer = entrantLayer;
 		}
+		UpdateEntrants();
 	}
 
 	void RemoveEntrant(GameObject entrant) {
