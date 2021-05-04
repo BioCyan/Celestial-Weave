@@ -493,6 +493,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 6110848514537212837, guid: 7c9abb1d7a3ad325b897af546ad5c137,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110848514537212837, guid: 7c9abb1d7a3ad325b897af546ad5c137,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110848514537212837, guid: 7c9abb1d7a3ad325b897af546ad5c137,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110848514537212837, guid: 7c9abb1d7a3ad325b897af546ad5c137,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110848514537212837, guid: 7c9abb1d7a3ad325b897af546ad5c137,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110848514537212837, guid: 7c9abb1d7a3ad325b897af546ad5c137,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110848514537212863, guid: 7c9abb1d7a3ad325b897af546ad5c137,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c9abb1d7a3ad325b897af546ad5c137, type: 3}
 --- !u!1 &691517814
@@ -809,6 +844,9 @@ MonoBehaviour:
   enemyTurtle: {fileID: -5454700469122568111, guid: 38efdaadbfe1d624bbee439cb02e7661,
     type: 3}
   turtleEnemies: []
+  flyingEnemy: {fileID: 2424874954167782345, guid: 4ae41066a4b2445b490fec3d1e2cb8a0,
+    type: 3}
+  flyingEnemies: []
 --- !u!4 &1271487806
 Transform:
   m_ObjectHideFlags: 0
@@ -822,6 +860,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1504182174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1504182175}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1504182175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504182174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 44.614326, y: 4.9644384, z: 15.5877}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1537918536
 GameObject:

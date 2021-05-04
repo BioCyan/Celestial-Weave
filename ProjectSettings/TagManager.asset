@@ -8,6 +8,8 @@ TagManager:
   - Right Portal
   - Platform
   - Enemy
+  - Projectile
+  - LandMine
   layers:
   - Default
   - TransparentFX
