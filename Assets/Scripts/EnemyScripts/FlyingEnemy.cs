@@ -15,7 +15,6 @@ public class FlyingEnemy : MonoBehaviour
 
     private float sightTime = 3f;
     private float laserRange = 8f;
-    private bool isShooting = false;
     private bool isAudio = false;
 
     void Awake()
@@ -59,10 +58,7 @@ public class FlyingEnemy : MonoBehaviour
             // Reset sight time, set audio to end and disable the laser
             sightTime = 3f;
             isAudio = false;
-            isShooting = false;
-            laser.enabled = false;
-            laser.enabled = false;
-            
+            laser.enabled = false;            
         }
 
     }
@@ -82,12 +78,10 @@ public class FlyingEnemy : MonoBehaviour
 
     private void ShootLaser()
     {
-        isShooting = true;
         laser.enabled = true;
         audio.enabled = true;
         laser.SetPosition(0, laserTip.transform.position);
         laser.SetPosition(1, player.transform.position);
-        //audio.Play();
     }
 
     private void Dead()
