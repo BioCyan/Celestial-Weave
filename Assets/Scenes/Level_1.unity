@@ -68138,8 +68138,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
-<<<<<<< HEAD
-=======
 --- !u!1 &1143058319
 GameObject:
   m_ObjectHideFlags: 0
@@ -68567,7 +68565,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddb18b48aaf73d949b5d04f2bb0d9388, type: 3}
->>>>>>> ec7049070c99d4dcffd6377ce751bb0bd17cacb9
 --- !u!1 &1149830752
 GameObject:
   m_ObjectHideFlags: 0

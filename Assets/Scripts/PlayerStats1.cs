@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
 public class PlayerStats : MonoBehaviour {
 
     [SerializeField] private Image health_Stats;
@@ -14,35 +15,5 @@ public class PlayerStats : MonoBehaviour {
         health_Stats.fillAmount = healthValue;
 
     }
-
-
-} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
+*/
