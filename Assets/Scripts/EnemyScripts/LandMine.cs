@@ -8,11 +8,14 @@ public class LandMine : MonoBehaviour
     public float proximityRange = 5f;
     private float lifeSpan = 8f;
     private float timer = 1.5f;
+    private bool isAudio = false;
     private GameObject player;
+    private AudioSource audio;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        audio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -21,6 +24,11 @@ public class LandMine : MonoBehaviour
         if( Vector3.Distance(player.transform.position, transform.position) <= proximityRange )
         {
             blowUp();
+            if( !(isAudio) )
+            {
+                isAudio = false;
+                StartCoroutine(PlayAudio());
+            }
             // If Player is still in range after timer(ie. 1.5 sec) then damage player
             timer -= Time.deltaTime;
             if( timer <= 0f )
@@ -38,6 +46,13 @@ public class LandMine : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    
+    IEnumerator PlayAudio()
+    {
+        audio.Play();
+        yield return new WaitForSeconds(5);
+        isAudio = true;
     }
 
     public float takeDamage()
