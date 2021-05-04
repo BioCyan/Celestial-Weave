@@ -27,6 +27,9 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical") * speed;
         anim.SetFloat("Moving", z);
 
+        if (transform.rotation.x != 0f || transform.rotation.z != 0f)
+            RotateThroughPortal();
+
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || (!JumpUsed)))
         {
             anim.SetTrigger("Jump");
@@ -47,6 +50,15 @@ public class PlayerMovement : MonoBehaviour
         Vector3 newMove = new Vector3(move.x, rigidBody.velocity.y, move.z);
 
         rigidBody.velocity = newMove;
+    }
+
+    private void RotateThroughPortal()
+    {
+        float epsilon = 0.01f, rotSpeed = 1.5f;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0), rotSpeed * Time.deltaTime);
+        // Snap rotation if small enough difference
+        if ((transform.rotation.x < epsilon && transform.rotation.x > -epsilon) && (transform.rotation.z < epsilon && transform.rotation.z > -epsilon))
+            transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
     }
 
     private void OnCollisionEnter(Collision collision)

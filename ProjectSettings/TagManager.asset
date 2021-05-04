@@ -8,6 +8,8 @@ TagManager:
   - Right Portal
   - Platform
   - Enemy
+  - Projectile
+  - LandMine
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Right Portal
   - Left Portal Colliders
   - Right Portal Colliders
-  - 
+  - EditorOnly
   - 
   - 
   - 
