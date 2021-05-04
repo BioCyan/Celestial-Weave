@@ -59,8 +59,14 @@ public class PortalScript : MonoBehaviour {
 			foreach (GameObject entrant in entrants.Keys) {
 				if (portalPlane.GetSide(entrant.transform.position)) {
 					portalTransform(entrant.transform);
+					portalTransformVelocity(entrant.GetComponent<Rigidbody>());
 					entrant.layer = otherPortal.GetComponent<PortalScript>().entrantLayer;
 					removals.Add(entrant);
+
+					if (entrant.tag == "Player") {
+						MeshRenderer backupMesh = otherPortal.GetComponent<PortalScript>().backupMesh;
+						backupMesh.enabled = true;
+					}
 				}
 			}
 			foreach (GameObject removal in removals) {
@@ -99,6 +105,7 @@ public class PortalScript : MonoBehaviour {
 			entrants.Add(entrant, copy);
 			entrant.layer = entrantLayer;
 		}
+		UpdateEntrants();
 	}
 
 	void RemoveEntrant(GameObject entrant) {
@@ -225,6 +232,14 @@ public class PortalScript : MonoBehaviour {
 
 		frame.position = pos;
 		frame.rotation = rot;
+	}
+
+	public void portalTransformVelocity(Rigidbody body) {
+		Quaternion portalToPortal = otherPortal.transform.rotation
+			* Quaternion.Euler(0, 180, 0)
+			* Quaternion.Inverse(transform.rotation);
+
+		body.velocity = portalToPortal * body.velocity;
 	}
 
 	public bool CameraNeedsBackup(Vector3 camPos) {

@@ -13,7 +13,7 @@ public class PortalCamera : MonoBehaviour {
 
 	private RenderTexture[] leftTextures;
 	private RenderTexture[] rightTextures;
-	
+
 	void Start() {
 		leftCameras = new GameObject[portalDepth];
 		leftTextures = new RenderTexture[portalDepth];
@@ -50,12 +50,10 @@ public class PortalCamera : MonoBehaviour {
 			}
 		}
 
-		/// ADDED CODE: Press [key] to "close" portals
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
+		if (Input.GetKeyDown(KeyCode.Q)) {
 			Destroy(leftPortal);
 			Destroy(rightPortal);
-        }
+		}
 	}
 
 	GameObject ShootPortal(GameObject oldPortal, GameObject otherPortal) {
@@ -115,7 +113,9 @@ public class PortalCamera : MonoBehaviour {
 		leftPortal.GetComponent<PortalScript>().UpdateEntrants();
 		Shader.SetGlobalVector("globalPlane", rightPlaneVector);
 		for (int i = portalDepth - 1; i >= 0; i--) {
+			leftCameras[i].GetComponent<Camera>().enabled = true;
 			leftCameras[i].GetComponent<Camera>().Render();
+			leftCameras[i].GetComponent<Camera>().enabled = false;
 
 			leftMaterial.mainTexture = leftTextures[i];
 		}
@@ -124,7 +124,9 @@ public class PortalCamera : MonoBehaviour {
 		rightPortal.GetComponent<PortalScript>().UpdateEntrants();
 		Shader.SetGlobalVector("globalPlane", leftPlaneVector);
 		for (int i = portalDepth - 1; i >= 0; i--) {
+			leftCameras[i].GetComponent<Camera>().enabled = true;
 			rightCameras[i].GetComponent<Camera>().Render();
+			leftCameras[i].GetComponent<Camera>().enabled = false;
 
 			rightMaterial.mainTexture = rightTextures[i];
 		}
