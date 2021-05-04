@@ -21,6 +21,10 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         slimeEnemies = new List<SlimeEnemy>();
+        turtleEnemies = new List<TurtleEnemy>();
+        flyingEnemies = new List<FlyingEnemy>();
+
+        // spawns numEnemy amount of each enemy
         for( int i = 0; i < numEnemies; i++ )
         {
             SlimeEnemy spawnedSlimeEnemy = Instantiate(enemySlime, RandomNavmeshLocation(range), Quaternion.identity) as SlimeEnemy;
@@ -32,6 +36,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    // Random location on a navigation mesh
     public Vector3 RandomNavmeshLocation(float radius)
     {
         Vector3 randomDirection = Random.insideUnitSphere * radius;

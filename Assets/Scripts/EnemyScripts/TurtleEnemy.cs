@@ -5,6 +5,7 @@ using UnityEngine;
 public class TurtleEnemy : MonoBehaviour
 {
     private UnityEngine.AI.NavMeshAgent agent;
+    private Animator anim;
     private Vector3 spawnPos;
     private Quaternion spawnRot;
     public GameObject landMine;
@@ -18,6 +19,7 @@ public class TurtleEnemy : MonoBehaviour
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -66,11 +68,13 @@ public class TurtleEnemy : MonoBehaviour
             agent.destination = spawnPos;
         else
             agent.destination = finalPos * Time.deltaTime * speed;
+        anim.Play("WalkFWD");
     }
 
     public void enemyDead()
     {
         //Start dead animation
-        Destroy(gameObject);
+        anim.Play("Die");
+        Destroy(gameObject, 2f);
     }
 }
