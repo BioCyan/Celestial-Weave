@@ -10,10 +10,13 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] private GameObject laserTip;
     [SerializeField] private LineRenderer laser;
     private Animator anim;
+    private AudioSource audio;
     private GameObject player;
 
     private float sightTime = 3f;
     private float laserRange = 8f;
+    private bool isShooting = false;
+    private bool isAudio = false;
 
     void Awake()
     {
@@ -23,6 +26,7 @@ public class FlyingEnemy : MonoBehaviour
             laser = GetComponent<LineRenderer>();
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -40,13 +44,34 @@ public class FlyingEnemy : MonoBehaviour
             sightTime -= Time.deltaTime;
             // If target is within range for more than sightTime(3 sec) then start shooting laser
             if( sightTime <= 0f )
+            {
                 ShootLaser();
+                // if theres no audio playing currently then play audio 
+                if( !(isAudio) )
+                {
+                    isAudio = true;
+                    StartCoroutine(PlayAudio());
+                }
+            }
+
         } else // player is outta range
         {
+            // Reset sight time, set audio to end and disable the laser
             sightTime = 3f;
+            isAudio = false;
+            isShooting = false;
             laser.enabled = false;
+            laser.enabled = false;
+            
         }
 
+    }
+
+    IEnumerator PlayAudio()
+    {
+        audio.Play();
+        yield return new WaitForSeconds(6);
+        isAudio = false;
     }
 
     private void LockOnTarget()
@@ -57,9 +82,12 @@ public class FlyingEnemy : MonoBehaviour
 
     private void ShootLaser()
     {
+        isShooting = true;
         laser.enabled = true;
+        audio.enabled = true;
         laser.SetPosition(0, laserTip.transform.position);
         laser.SetPosition(1, player.transform.position);
+        //audio.Play();
     }
 
     private void Dead()

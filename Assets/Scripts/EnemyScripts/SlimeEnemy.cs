@@ -17,6 +17,7 @@ public class SlimeEnemy : MonoBehaviour
     [SerializeField] private float speed = 3f;
     private float distance;
     private float minDistance = 10f;
+    private bool isDying = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,10 +39,9 @@ public class SlimeEnemy : MonoBehaviour
             transform.LookAt(player.transform.position);
             agent.destination = player.transform.position;
             anim.Play("WalkFWD");
+            if( distance <= attackRange && !(isDying) )
+                suicideKill();
         }
-
-        if( distance <= attackRange )
-            suicideKill();
         // if enemy health below 0 die
         if( health <= 0f )
         {
@@ -51,10 +51,13 @@ public class SlimeEnemy : MonoBehaviour
 
     private void suicideKill()
     {
+        isDying = true;
         // attack player 
         anim.Play("Attack02");
+        GetComponent<AudioSource>().Play();
+        //gameObject.SetActive(false);
         // destroy enemy
-        Destroy(gameObject, 1.5f);
+        Destroy(gameObject, 2f);
     }
 
     public void getHit(float dmg)
