@@ -18,6 +18,7 @@ public class SlimeEnemy : MonoBehaviour
     private float distance;
     private float minDistance = 10f;
     private bool isDying = false;
+    private bool isDamaging = false;
 
     // Start is called before the first frame update
     void Start()
@@ -40,13 +41,23 @@ public class SlimeEnemy : MonoBehaviour
             agent.destination = player.transform.position;
             anim.Play("WalkFWD");
             if( distance <= attackRange && !(isDying) )
+            {
                 suicideKill();
+                if( !(isDamaging) )
+                    damagePlayer();
+            }
         }
         // if enemy health below 0 die
         if( health <= 0f )
         {
             enemyDead();
         }
+    }
+
+    public void damagePlayer()
+    {
+        isDamaging = true;
+        player.GetComponent<PlayerStats>().takeDamage(damage);
     }
 
     private void suicideKill()

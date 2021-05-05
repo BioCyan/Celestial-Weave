@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 4676148994726597839}
   m_Layer: 0
   m_Name: RoboPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -435,7 +435,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGrounded: 1
   JumpUsed: 0
-  jumpSound: {fileID: 1447068142088851553}
   speed: 6
   jumpIntensity: 8
 --- !u!54 &80654975621862583

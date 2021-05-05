@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class LandMine : MonoBehaviour
 {
-    public float damage = 25f;
+    public float damage = 50f;
     public float proximityRange = 5f;
     private float lifeSpan = 8f;
     private float timer = 1.5f;
     private bool isAudio = false;
+    private bool isDamaging = false;
     private GameObject player;
     private AudioSource audio;
 
@@ -33,10 +34,9 @@ public class LandMine : MonoBehaviour
             timer -= Time.deltaTime;
             if( timer <= 0f )
             {
-                if( Vector3.Distance(player.transform.position, transform.position) <= proximityRange )
+                if( Vector3.Distance(player.transform.position, transform.position) <= proximityRange && !(isDamaging) )
                 {
-                    //player.GetComponent<takeDamage(damage);
-                    Debug.Log("Player damage");
+                    damagePlayer();
                 }
             }
         }
@@ -46,6 +46,12 @@ public class LandMine : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void damagePlayer()
+    {
+        isDamaging = true;
+        player.GetComponent<PlayerStats>().takeDamage(damage);
     }
     
     IEnumerator PlayAudio()

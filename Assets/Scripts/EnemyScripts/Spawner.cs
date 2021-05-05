@@ -13,9 +13,9 @@ public class Spawner : MonoBehaviour
     [SerializeField] public FlyingEnemy flyingEnemy;
     [SerializeField] private List<FlyingEnemy> flyingEnemies;
 
-    [Range (0,50)]
+    [Range (0,200)]
     private int numEnemies = 5;
-    private float range = 50;
+    private float range = 200;
 
     // Start is called before the first frame update
     void Start()
