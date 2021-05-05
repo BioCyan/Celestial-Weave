@@ -17,9 +17,9 @@ public class FlyingEnemy : MonoBehaviour
     private float sightTime = 3f;
     private float laserRange = 10f;
     private float nextShootTime = 0f;
-    private float lastShot = 0.0f;
+    private float damageMulitplier = 1.0f;
+    private DifficultyLevel curDifficulty;
     private bool isAudio = false;
-    private bool isDamaging = false;
 
     void Awake()
     {
@@ -30,11 +30,14 @@ public class FlyingEnemy : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         audio = GetComponent<AudioSource>();
+        curDifficulty = OptionsController.CurrentDifficulty;
+        SetDamageMultiplier();
     }
 
     // Update is called once per frame
     void Update()
     {
+        changeLevel();
         anim.Play("IdleBattle");
         if( health <= 0f )
         {
@@ -55,7 +58,7 @@ public class FlyingEnemy : MonoBehaviour
                     damagePlayer();
                     nextShootTime = Time.time + 1/shootRate;
                 }
-                // if theres no audio playing currently then play audio 
+                // if theres no audio playing currently when shooting laser then play audio 
                 if( !(isAudio) )
                 {
                     isAudio = true;
@@ -73,14 +76,33 @@ public class FlyingEnemy : MonoBehaviour
 
     }
 
+    private void SetDamageMultiplier()
+    {
+        if( curDifficulty == DifficultyLevel.Easy )
+            damageMulitplier = 1.0f;
+        if( curDifficulty == DifficultyLevel.Medium )
+            damageMulitplier = 2.0f;
+        if( curDifficulty == DifficultyLevel.Hard )
+            damageMulitplier = 3.0f;
+    }
+
+    private void changeLevel()
+    {
+        if( !(curDifficulty == OptionsController.CurrentDifficulty) )
+        {
+            curDifficulty = OptionsController.CurrentDifficulty;
+            SetDamageMultiplier();
+        }
+    }
+
     private void damagePlayer()
     {
-        isDamaging = true;
-        player.GetComponent<PlayerStats>().takeDamage(damage);
+        player.GetComponent<PlayerStats>().takeDamage(damage*damageMulitplier);
     }
 
     IEnumerator PlayAudio()
     {
+        // Plays audio for 6 seconds 
         audio.Play();
         yield return new WaitForSeconds(6);
         isAudio = false;
@@ -94,6 +116,7 @@ public class FlyingEnemy : MonoBehaviour
 
     private void ShootLaser()
     {
+        //Enables laser lineRenderer and audio 
         laser.enabled = true;
         audio.enabled = true;
         laser.SetPosition(0, laserTip.transform.position);

@@ -12,15 +12,20 @@ public class LandMine : MonoBehaviour
     private bool isDamaging = false;
     private GameObject player;
     private AudioSource audio;
+    private float damageMulitplier = 1.0f;
+    private DifficultyLevel curDifficulty;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         audio = GetComponent<AudioSource>();
+        curDifficulty = OptionsController.CurrentDifficulty;
+        SetDamageMultiplier();
     }
 
     void Update()
     {
+        changeLevel();
         // If Player comes into range, it blows up
         if( Vector3.Distance(player.transform.position, transform.position) <= proximityRange )
         {
@@ -48,10 +53,29 @@ public class LandMine : MonoBehaviour
         }
     }
 
+    private void SetDamageMultiplier()
+    {
+        if( curDifficulty == DifficultyLevel.Easy )
+            damageMulitplier = 1.0f;
+        if( curDifficulty == DifficultyLevel.Medium )
+            damageMulitplier = 2.0f;
+        if( curDifficulty == DifficultyLevel.Hard )
+            damageMulitplier = 3.0f;
+    }
+
+    private void changeLevel()
+    {
+        if( !(curDifficulty == OptionsController.CurrentDifficulty) )
+        {
+            curDifficulty = OptionsController.CurrentDifficulty;
+            SetDamageMultiplier();
+        }
+    }
+
     private void damagePlayer()
     {
         isDamaging = true;
-        player.GetComponent<PlayerStats>().takeDamage(damage);
+        player.GetComponent<PlayerStats>().takeDamage(damage*damageMulitplier);
     }
     
     IEnumerator PlayAudio()

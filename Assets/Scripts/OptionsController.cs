@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum DifficultyLevel { Easy, Medium, Hard };
+
 public class OptionsController : MonoBehaviour
 {
     [SerializeField] Text Difficulty;
-    public enum DifficultyLevel { Easy, Medium, Hard };
-    public static DifficultyLevel CurrentDifficulty = DifficultyLevel.Easy;
+    public static DifficultyLevel CurrentDifficulty = DifficultyLevel.Hard;
 
     private void Start()
     {
