@@ -77,7 +77,8 @@ public class PlayerStats : MonoBehaviour
                     newHealth = 0;
                 health = newHealth;
             }
-            damageSound.Play();
+            if( damageSound != null )
+                damageSound.Play();
             imune = true;
             lastHit = Time.time;
         }

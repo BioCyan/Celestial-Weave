@@ -5,7 +5,7 @@ using UnityEngine;
 public class FlyingEnemy : MonoBehaviour
 {
     public float health = 50f;
-    public float shootRate = 1f;
+    public float shootRate = 50f;
     public float damage = 1f;
 
     [SerializeField] private GameObject laserTip;
@@ -16,7 +16,7 @@ public class FlyingEnemy : MonoBehaviour
 
     private float sightTime = 3f;
     private float laserRange = 10f;
-    private float nextShootTime = 0;
+    private float nextShootTime = 0f;
     private float lastShot = 0.0f;
     private bool isAudio = false;
     private bool isDamaging = false;
@@ -49,11 +49,10 @@ public class FlyingEnemy : MonoBehaviour
             if( sightTime <= 0f )
             {
                 ShootLaser();
+                // Trying to damage player per fireRate
                 if( Time.time > nextShootTime )
                 {
-                    Debug.Log("Damaing " + Time.time);
                     damagePlayer();
-                    //lastShot = Time.time;
                     nextShootTime = Time.time + 1/shootRate;
                 }
                 // if theres no audio playing currently then play audio 
