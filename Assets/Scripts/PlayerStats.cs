@@ -63,6 +63,7 @@ public class PlayerStats : MonoBehaviour
 
     public void takeDamage(float damage)
     {
+		damage *= PlayerPrefs.GetInt("Difficulty", 2) / 2.0f;
         if (imune == true)
         {
             Debug.Log("imune to damage");
