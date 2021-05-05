@@ -14,11 +14,12 @@ public class SlimeEnemy : MonoBehaviour
     public float health = 75f;
     public float damage = 85f;
     public float attackRange = 3f;
-    [SerializeField] private float speed = 3f;
     private float distance;
     private float minDistance = 10f;
     private bool isDying = false;
     private bool isDamaging = false;
+    private float damageMulitplier = 1.0f;
+    private DifficultyLevel curDifficulty;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +28,14 @@ public class SlimeEnemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
         anim = GetComponent<Animator>();
+        curDifficulty = OptionsController.CurrentDifficulty;
+        SetDamageMultiplier();
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        changeLevel();
         // if enemy health below 0 die
         if( health <= 0f )
         {
@@ -62,10 +66,29 @@ public class SlimeEnemy : MonoBehaviour
         }
     }
 
+    public void SetDamageMultiplier()
+    {
+        if( curDifficulty == DifficultyLevel.Easy )
+            damageMulitplier = 1.0f;
+        if( curDifficulty == DifficultyLevel.Medium )
+            damageMulitplier = 2.0f;
+        if( curDifficulty == DifficultyLevel.Hard )
+            damageMulitplier = 3.0f;
+    }
+
+    private void changeLevel()
+    {
+        if( !(curDifficulty == OptionsController.CurrentDifficulty) )
+        {
+            curDifficulty = OptionsController.CurrentDifficulty;
+            SetDamageMultiplier();
+        }
+    }
+
     public void damagePlayer()
     {
         isDamaging = true;
-        player.GetComponent<PlayerStats>().takeDamage(damage);
+        player.GetComponent<PlayerStats>().takeDamage(damage*damageMulitplier);
     }
 
     private void suicideKill()
