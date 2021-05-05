@@ -23,7 +23,7 @@ public class LevelEnd : MonoBehaviour
 	public void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag == "Player") {
 			levelObject.SetActive(true);
-			timeText.text = "Time: " + GetTime(Time.time);
+			timeText.text = "Time: " + GetTime(Time.timeSinceLevelLoad);
 			collision.gameObject.GetComponent<PlayerMovement>().enabled = false;
 			NextLevel();
 		}
