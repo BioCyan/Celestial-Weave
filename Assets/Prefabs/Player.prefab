@@ -65,7 +65,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraPrefab: {fileID: 1249369083430669069, guid: 08fe155b6ba5dffdfbd2830286d28fbf,
     type: 3}
-  portalDepth: 2
+  portalDepth: 8
   leftCameras: []
   rightCameras: []
   leftPortal: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 1907538457615692757}
   - component: {fileID: 1907538457615692744}
   - component: {fileID: 1907538457615692745}
-  - component: {fileID: 860109747}
+  - component: {fileID: 8454743869230502692}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -248,7 +248,7 @@ MonoBehaviour:
   JumpUsed: 0
   speed: 6
   jumpIntensity: 40
---- !u!114 &860109747
+--- !u!114 &8454743869230502692
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
