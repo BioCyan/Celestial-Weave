@@ -9,22 +9,12 @@ public class MenuButton : MonoBehaviour
 	[SerializeField] Animator animator;
 	[SerializeField] AnimatorFunctions animatorFunctions;
 	[SerializeField] int thisIndex;
-	[SerializeField] bool clicked ;
+	[SerializeField] public bool clicked ;
 	[SerializeField] PauseController pauseController;
 	[SerializeField] GameObject optionsMenu;
 	[SerializeField] GameObject mainMenu;
 
-	private void Start()
-    {
-		if (SceneManager.GetActiveScene().buildIndex == 0) 
-		{
-			optionsMenu = GameObject.Find();
-			mainMenu = GameObject.Find();
-
-		}
-
-
-	}
+	
     // Update is called once per frame
     void Update()
 	{
@@ -74,12 +64,17 @@ public class MenuButton : MonoBehaviour
 	private void OpenOptions()
     {
 		optionsMenu.SetActive(true);
+		mainMenu.SetActive(false);
 
 		// Not sure how you had intented to set this set up.
 		// Complete this function.
 		// Should include:
 		// Difficulty = {Easy, Medium, Hard}
 		// LevelSelect = {1, 2, 3} by index where 0 = startmenu
+	}
+	public void unclick() 
+	{
+		clicked = false;
 	}
 
 	public void mouseOver()

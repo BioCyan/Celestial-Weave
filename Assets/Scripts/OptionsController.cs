@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OptionsController : MonoBehaviour
@@ -30,4 +31,20 @@ public class OptionsController : MonoBehaviour
         CurrentDifficulty = DifficultyLevel.Hard;
         Difficulty.text = "Difficulty : Hard ";
     }
+
+    public void level1() 
+    {
+        SceneManager.LoadScene("Level_0");
+    }
+
+    public void level2()
+    {
+        SceneManager.LoadScene("Level_1");
+    }
+
+    public void level3()
+    {
+        SceneManager.LoadScene("Level_2");
+    }
+
 }
