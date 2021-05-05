@@ -27,7 +27,7 @@ public class MenuButton : MonoBehaviour
 				}
 				else if (thisIndex == 1)
 				{
-					pauseController.TogglePause();
+					//pauseController.TogglePause();
 				}
 				else if (thisIndex == 2)
 				{
