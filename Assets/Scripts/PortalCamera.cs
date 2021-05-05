@@ -52,14 +52,19 @@ public class PortalCamera : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.Q)) {
-			Destroy(leftPortal);
-			Destroy(rightPortal);
+			ClosePortals();
 		}
 
 		zoom += Input.mouseScrollDelta.y;
 		zoom = Mathf.Clamp(zoom, 1, 3);
 		GetComponent<Camera>().fieldOfView = 60 / zoom;
 		GetComponent<MouseLook>().mouseSensitivity = 100 / zoom;
+	}
+
+	public void ClosePortals()
+    {
+		Destroy(leftPortal);
+		Destroy(rightPortal);
 	}
 
 	GameObject ShootPortal(GameObject oldPortal, GameObject otherPortal) {

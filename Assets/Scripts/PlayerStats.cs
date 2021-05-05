@@ -22,7 +22,8 @@ public class PlayerStats : MonoBehaviour
     private float imuneCoolDown = 0.5f;
     private float lastRecharge = 0f;
     private float rechargeCoolDown = 1f;
-    private int extraLife = 2;
+    private int extraLife = 0;
+    GameObject gameover;
     [SerializeField] public AudioSource damageSound;
 
     public Image healthBar;
@@ -37,6 +38,8 @@ public class PlayerStats : MonoBehaviour
 
 		healthBar = GameObject.Find("Health Foreground").GetComponent<Image>();
 		shieldBar = GameObject.Find("Shield Foreground").GetComponent<Image>();
+        gameover = GameObject.Find("GameOver");
+        gameover.SetActive(false);
     }
 
     // Update is called once per frame
@@ -54,7 +57,7 @@ public class PlayerStats : MonoBehaviour
         if ((health <= 0) && (isDead == false))
         {
             isDead = true;
-            // Call gameOver();
+            gameOver();
         }
     }
 
@@ -118,8 +121,8 @@ public class PlayerStats : MonoBehaviour
 
     public void gameOver()
     {
-        GameObject.Find("GameOver").SetActive(true);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        gameover.SetActive(true);
     }
 
     public void Display_HealthStats(float healthValue)
