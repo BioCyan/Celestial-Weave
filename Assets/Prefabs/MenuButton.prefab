@@ -144,6 +144,9 @@ MonoBehaviour:
   animatorFunctions: {fileID: 1088965559617320634}
   thisIndex: 0
   clicked: 0
+  pauseController: {fileID: 0}
+  optionsMenu: {fileID: 0}
+  mainMenu: {fileID: 0}
 --- !u!95 &1120576109
 Animator:
   serializedVersion: 3

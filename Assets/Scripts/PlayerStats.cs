@@ -34,7 +34,7 @@ public class PlayerStats : MonoBehaviour
     {
         health = maxHealth;
         shield = maxShield;
-        extraLife = 2;
+        extraLife = 0;
 
 		healthBar = GameObject.Find("Health Foreground").GetComponent<Image>();
 		shieldBar = GameObject.Find("Shield Foreground").GetComponent<Image>();

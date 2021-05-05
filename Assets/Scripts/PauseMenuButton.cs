@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuButton : MonoBehaviour
+public class PauseMenuButton : MonoBehaviour
 {
 	[SerializeField] MenuButtonController menuButtonController;
 	[SerializeField] Animator animator;
@@ -14,9 +14,9 @@ public class MenuButton : MonoBehaviour
 	[SerializeField] GameObject optionsMenu;
 	[SerializeField] GameObject mainMenu;
 
-	
-    // Update is called once per frame
-    void Update()
+
+	// Update is called once per frame
+	void Update()
 	{
 		if(menuButtonController.index == thisIndex)
 		{
@@ -31,35 +31,20 @@ public class MenuButton : MonoBehaviour
 					else
 						SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 					Time.timeScale = 1;
-					//menuButtonController.newGame();
-					
+
 				}
 				else if (thisIndex == 1)
 				{
-					//pauseController.TogglePause();
-					if (SceneManager.GetActiveScene().buildIndex == 0)
-						OpenOptions();
-					else
-						SceneManager.LoadScene("startMenu");
+					menuButtonController.ResumeGame();
+					menuButtonController.gameObject.SetActive(false);
+					GameObject.Find("PauseEventSystem").GetComponent<PauseController>().TogglePause();
 				}
 				else if (thisIndex == 2)
 				{
 					menuButtonController.quit();
 				}
 
-				if (thisIndex == 3)
-				{
-					SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-				}
-				if (thisIndex == 4)
-				{
-					
-				}
-
-				if (thisIndex == 5)
-				{
-					menuButtonController.quit();
-				}
+			
 
 			}
 			else if (animator.GetBool ("pressed"))
