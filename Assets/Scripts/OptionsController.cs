@@ -17,18 +17,21 @@ public class OptionsController : MonoBehaviour
     }
     public void Easy()
     {
+		PlayerPrefs.SetInt("Difficulty", 1);
         CurrentDifficulty = DifficultyLevel.Easy;
         Difficulty.text = "Difficulty : Easy "; 
     }
      
     public void Medium()
     {
+		PlayerPrefs.SetInt("Difficulty", 2);
         CurrentDifficulty = DifficultyLevel.Medium;
         Difficulty.text = "Difficulty : Medium ";
     }
 
     public void Hard()
     {
+		PlayerPrefs.SetInt("Difficulty", 2);
         CurrentDifficulty = DifficultyLevel.Hard;
         Difficulty.text = "Difficulty : Hard ";
     }

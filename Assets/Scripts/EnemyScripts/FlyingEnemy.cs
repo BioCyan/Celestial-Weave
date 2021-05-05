@@ -90,11 +90,9 @@ public class FlyingEnemy : MonoBehaviour
     {
         if( !(curDifficulty == OptionsController.CurrentDifficulty) )
         {
-            Debug.Log("Changing level");
             curDifficulty = OptionsController.CurrentDifficulty;
             SetDamageMultiplier();
         }
-        //Debug.Log("No level change");
     }
 
     private void damagePlayer()

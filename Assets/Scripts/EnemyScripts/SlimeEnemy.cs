@@ -34,8 +34,10 @@ public class SlimeEnemy : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
-        changeLevel();
+    {
+        if (isDying)
+            return;
+
         // if enemy health below 0 die
         if( health <= 0f )
         {
@@ -95,9 +97,9 @@ public class SlimeEnemy : MonoBehaviour
     {
         isDying = true;
         // attack player
-        anim.Play("Attack02");
+        anim.Play("Die");
+        agent.destination = transform.position;
         GetComponent<AudioSource>().Play();
-        //gameObject.SetActive(false);
         // destroy enemy
         Destroy(gameObject, 2f);
     }
