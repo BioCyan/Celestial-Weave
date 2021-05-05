@@ -9,15 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/startMenu.unity
     guid: c5d207e6474914b4988639513fbe8128
   - enabled: 1
-    path: Assets/Scenes/CharacterTest.unity
-    guid: 9ec633e184852934dbe15eb45d53ba9d
+    path: Assets/Scenes/Level_1.unity
+    guid: afa1cedf4f6c5084f86f8b3c3f1f017a
   - enabled: 1
-    path: Assets/Scenes/PortalTest.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/MiscTesting.unity
-    guid: 98df3c866b1b6f84d91672e740df0c18
-  - enabled: 1
-    path: Assets/Scenes/EnemyTest.unity
-    guid: c1d113faf4b374e7e8de2b52ce500962
+    path: Assets/Scenes/Level_2.unity
+    guid: eda526f32a2014b4b832c6666bca6f40
   m_configObjects: {}

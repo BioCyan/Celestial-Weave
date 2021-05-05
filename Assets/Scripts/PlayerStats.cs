@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
     public float maxHealth = 100;
     public float health = 100;
-//    [SerializeField] Text healthCounter;
+    //    [SerializeField] Text healthCounter;
     public float maxShield = 50;
     public float shield = 0;
 //    [SerializeField] Text shieldCounter;
@@ -24,17 +25,25 @@ public class PlayerStats : MonoBehaviour
     private int extraLife = 2;
     [SerializeField] public AudioSource damageSound;
 
+    public Image healthBar;
+    public Image shieldBar;
+
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
         shield = maxShield;
         extraLife = 2;
+
+		healthBar = GameObject.Find("Health Foreground").GetComponent<Image>();
+		shieldBar = GameObject.Find("Shield Foreground").GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Display_HealthStats(health);
+        Display_ShieldStats(shield);
         if ((Time.time - lastHit) > imuneCoolDown)
             imune = false;
         if (((Time.time - lastRecharge) > rechargeCoolDown) && shield < maxShield)
@@ -71,7 +80,7 @@ public class PlayerStats : MonoBehaviour
                     newHealth = 0;
                 health = newHealth;
             }
-            if (damageSound != null)
+            if( damageSound != null )
                 damageSound.Play();
             imune = true;
             lastHit = Time.time;
@@ -109,7 +118,21 @@ public class PlayerStats : MonoBehaviour
 
     public void gameOver()
     {
+        GameObject.Find("GameOver").SetActive(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void Display_HealthStats(float healthValue)
+    {
+        healthValue /= maxHealth;
+
+        healthBar.fillAmount = healthValue;
+    }
+
+    public void Display_ShieldStats(float shieldValue)
+    {
+        shieldValue /= maxShield;
+
+        shieldBar.fillAmount = shieldValue;
+    }
 }
