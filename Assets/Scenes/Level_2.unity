@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.28098285, g: 0.25430912, b: 0.2652801, a: 1}
+  m_IndirectSpecularColor: {r: 0.28101292, g: 0.2543006, b: 0.2652842, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -41878,22 +41878,22 @@ PrefabInstance:
     - target: {fileID: 2018021080471170689, guid: 20c83551f4b4c03d090697cf7ab0d750,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.61
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 2018021080471170689, guid: 20c83551f4b4c03d090697cf7ab0d750,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.985
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2018021080471170689, guid: 20c83551f4b4c03d090697cf7ab0d750,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.23
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 2018021080471170689, guid: 20c83551f4b4c03d090697cf7ab0d750,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2018021080471170689, guid: 20c83551f4b4c03d090697cf7ab0d750,
         type: 3}
@@ -41903,7 +41903,7 @@ PrefabInstance:
     - target: {fileID: 2018021080471170689, guid: 20c83551f4b4c03d090697cf7ab0d750,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2018021080471170689, guid: 20c83551f4b4c03d090697cf7ab0d750,
         type: 3}
@@ -41918,7 +41918,7 @@ PrefabInstance:
     - target: {fileID: 2018021080471170689, guid: 20c83551f4b4c03d090697cf7ab0d750,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 2018021080471170689, guid: 20c83551f4b4c03d090697cf7ab0d750,
         type: 3}
