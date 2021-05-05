@@ -13,6 +13,7 @@ public class PortalCamera : MonoBehaviour {
 
 	private RenderTexture[] leftTextures;
 	private RenderTexture[] rightTextures;
+	private float zoom = 1;
 
 	void Start() {
 		leftCameras = new GameObject[portalDepth];
@@ -54,6 +55,11 @@ public class PortalCamera : MonoBehaviour {
 			Destroy(leftPortal);
 			Destroy(rightPortal);
 		}
+
+		zoom += Input.mouseScrollDelta.y;
+		zoom = Mathf.Clamp(zoom, 1, 3);
+		GetComponent<Camera>().fieldOfView = 60 / zoom;
+		GetComponent<MouseLook>().mouseSensitivity = 100 / zoom;
 	}
 
 	GameObject ShootPortal(GameObject oldPortal, GameObject otherPortal) {
@@ -113,9 +119,10 @@ public class PortalCamera : MonoBehaviour {
 		leftPortal.GetComponent<PortalScript>().UpdateEntrants();
 		Shader.SetGlobalVector("globalPlane", rightPlaneVector);
 		for (int i = portalDepth - 1; i >= 0; i--) {
-			leftCameras[i].GetComponent<Camera>().enabled = true;
-			leftCameras[i].GetComponent<Camera>().Render();
-			leftCameras[i].GetComponent<Camera>().enabled = false;
+			Camera cam = leftCameras[i].GetComponent<Camera>();
+			cam.enabled = true;
+			cam.Render();
+			cam.enabled = false;
 
 			leftMaterial.mainTexture = leftTextures[i];
 		}
@@ -124,9 +131,10 @@ public class PortalCamera : MonoBehaviour {
 		rightPortal.GetComponent<PortalScript>().UpdateEntrants();
 		Shader.SetGlobalVector("globalPlane", leftPlaneVector);
 		for (int i = portalDepth - 1; i >= 0; i--) {
-			leftCameras[i].GetComponent<Camera>().enabled = true;
-			rightCameras[i].GetComponent<Camera>().Render();
-			leftCameras[i].GetComponent<Camera>().enabled = false;
+			Camera cam = rightCameras[i].GetComponent<Camera>();
+			cam.enabled = true;
+			cam.Render();
+			cam.enabled = false;
 
 			rightMaterial.mainTexture = rightTextures[i];
 		}
@@ -141,6 +149,8 @@ public class PortalCamera : MonoBehaviour {
 	}
 
 	void UpdateCameras() {
+		float fov = GetComponent<Camera>().fieldOfView;
+
 		Vector3 pos = this.transform.position;
 		Quaternion rot = this.transform.rotation;
 		Quaternion leftToRight = rightPortal.transform.rotation
@@ -154,6 +164,7 @@ public class PortalCamera : MonoBehaviour {
 
 			leftCameras[i].transform.position = pos;
 			leftCameras[i].transform.rotation = rot;
+			leftCameras[i].GetComponent<Camera>().fieldOfView = fov;
 		}
 
 		pos = this.transform.position;
@@ -169,6 +180,7 @@ public class PortalCamera : MonoBehaviour {
 
 			rightCameras[i].transform.position = pos;
 			rightCameras[i].transform.rotation = rot;
+			rightCameras[i].GetComponent<Camera>().fieldOfView = fov;
 		}
 	}
 }
