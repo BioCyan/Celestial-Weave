@@ -7,11 +7,19 @@ using UnityEngine.SceneManagement;
 public class LevelEnd : MonoBehaviour
 {
 	[SerializeField] public int nextScene = 0;
+	GameObject levelObject;
+	Text levelNumText;
 
-	public void OnCollisionEnter(Collision collision) {
+	private void Start()
+    {
+		levelNumText = GameObject.Find("LevelNumText").GetComponent<Text>();
+		levelNumText.text = "" + (SceneManager.GetActiveScene().buildIndex +1);
+		levelObject = GameObject.Find("Level");
+		levelObject.SetActive(false);
+	}
+    public void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag == "Player") {
-			GameObject.Find("LevelNumText").GetComponent<Text>().text = ""+ SceneManager.GetActiveScene().buildIndex + 1 ;
-			GameObject.Find("Level").SetActive(true);
+			levelObject.SetActive(true);
 			
 		}
 	}
