@@ -9,6 +9,7 @@ public class GravityController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("JUMP");
+        other.GetComponent<Rigidbody>().velocity = Vector3.zero;
         Vector3 upVec = transform.up;
         float force = Mathf.Sqrt(2 * height * 9.8f) * other.GetComponent<Rigidbody>().mass;
         other.gameObject.GetComponent<Rigidbody>().AddForce(force * upVec, ForceMode.Impulse);
