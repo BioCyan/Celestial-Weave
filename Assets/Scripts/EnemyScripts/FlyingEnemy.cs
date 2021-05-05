@@ -94,7 +94,7 @@ public class FlyingEnemy : MonoBehaviour
             curDifficulty = OptionsController.CurrentDifficulty;
             SetDamageMultiplier();
         }
-        Debug.Log("No level change");
+        //Debug.Log("No level change");
     }
 
     private void damagePlayer()

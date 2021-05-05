@@ -39,17 +39,18 @@ public class LevelEnd : MonoBehaviour
 
 	public void NextLevel()
 	{
-		if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings) {
+		if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1) {
 			nextScene = SceneManager.GetActiveScene().buildIndex + 1;
 		} else {
 			nextScene = 0;
 		}
+		Debug.Log("Nextscene: " + nextScene);
 		StartCoroutine( loadNextScene() );
 	}
 
 	IEnumerator loadNextScene()
 	{
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(4);
 		SceneManager.LoadScene(nextScene);
 
 	}

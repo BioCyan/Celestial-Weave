@@ -3513,7 +3513,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25134
+  m_Name: pb_Mesh140876
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17561,7 +17561,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25872
+  m_Name: pb_Mesh141618
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23681,7 +23681,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25604
+  m_Name: pb_Mesh141350
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -26281,7 +26281,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25966
+  m_Name: pb_Mesh141712
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -32235,7 +32235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ee68156d9ac984eb1ce28699f06359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  Player: {fileID: 822449549}
   onPlatform: 0
 --- !u!136 &654838272
 CapsuleCollider:
@@ -41927,6 +41927,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20c83551f4b4c03d090697cf7ab0d750, type: 3}
+--- !u!1 &822449549 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1678333957244695611, guid: 20c83551f4b4c03d090697cf7ab0d750,
+    type: 3}
+  m_PrefabInstance: {fileID: 822449548}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &823649920
 GameObject:
   m_ObjectHideFlags: 0
@@ -49907,7 +49913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ee68156d9ac984eb1ce28699f06359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1185389688}
+  Player: {fileID: 822449549}
   onPlatform: 0
 --- !u!1 &950346005
 GameObject:
@@ -57030,7 +57036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ee68156d9ac984eb1ce28699f06359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1185389688}
+  Player: {fileID: 822449549}
   onPlatform: 0
 --- !u!65 &1044474356
 BoxCollider:
@@ -65149,12 +65155,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!1 &1185389688 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1907538457615692754, guid: ddb18b48aaf73d949b5d04f2bb0d9388,
-    type: 3}
-  m_PrefabInstance: {fileID: 257422786}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1191110288
 GameObject:
   m_ObjectHideFlags: 0
@@ -67818,7 +67818,7 @@ GameObject:
   - component: {fileID: 1286158921}
   m_Layer: 0
   m_Name: Cube (35)
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -70660,7 +70660,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25460
+  m_Name: pb_Mesh141206
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -72505,7 +72505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ee68156d9ac984eb1ce28699f06359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1185389688}
+  Player: {fileID: 822449549}
   onPlatform: 0
 --- !u!65 &1326074217
 BoxCollider:
@@ -72518,8 +72518,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 0.5, z: 3.0000002}
-  m_Center: {x: 1.5, y: 1.25, z: -1.5}
+  m_Size: {x: 3.0000002, y: 0.64074326, z: 3.0000002}
+  m_Center: {x: 1.5, y: 1.3203716, z: -1.5}
 --- !u!65 &1326074218
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72531,8 +72531,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.9999995, y: 0.5, z: 3.0000002}
-  m_Center: {x: 2.9999995, y: 1.25, z: -4.5}
+  m_Size: {x: 5.9999995, y: 0.6387367, z: 3.0000002}
+  m_Center: {x: 2.9999995, y: 1.3193684, z: -4.5}
 --- !u!1 &1329349509
 GameObject:
   m_ObjectHideFlags: 0
@@ -88492,7 +88492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ee68156d9ac984eb1ce28699f06359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1185389688}
+  Player: {fileID: 822449549}
   onPlatform: 0
 --- !u!65 &1756601655
 BoxCollider:
@@ -99757,7 +99757,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26466
+  m_Name: pb_Mesh142210
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -101781,7 +101781,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26754
+  m_Name: pb_Mesh142498
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -108236,7 +108236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ee68156d9ac984eb1ce28699f06359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1185389688}
+  Player: {fileID: 822449549}
   onPlatform: 0
 --- !u!65 &2087936579
 BoxCollider:
@@ -110126,6 +110126,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 122285197}
     m_Modifications:
+    - target: {fileID: 6928681418574023849, guid: faaa4af8feddc9f47897bcd629bb021e,
+        type: 3}
+      propertyPath: height
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 6928681418574023854, guid: faaa4af8feddc9f47897bcd629bb021e,
         type: 3}
       propertyPath: m_RootOrder
