@@ -32,25 +32,33 @@ public class SlimeEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        anim.Play("Taunt");
+        // if enemy health below 0 die
+        if( health <= 0f )
+        {
+            enemyDead();
+            return;
+        }
+
         // if player comes into distance than follow player
         distance = Vector3.Distance(player.transform.position, transform.position);
         if( distance <= minDistance )
         {
             transform.LookAt(player.transform.position);
             agent.destination = player.transform.position;
-            anim.Play("WalkFWD");
             if( distance <= attackRange && !(isDying) )
             {
                 suicideKill();
                 if( !(isDamaging) )
                     damagePlayer();
             }
+            else
+            {
+                anim.Play("WalkFWD");
+            }
         }
-        // if enemy health below 0 die
-        if( health <= 0f )
+        else
         {
-            enemyDead();
+            anim.Play("Taunt");
         }
     }
 
@@ -63,7 +71,7 @@ public class SlimeEnemy : MonoBehaviour
     private void suicideKill()
     {
         isDying = true;
-        // attack player 
+        // attack player
         anim.Play("Attack02");
         GetComponent<AudioSource>().Play();
         //gameObject.SetActive(false);
