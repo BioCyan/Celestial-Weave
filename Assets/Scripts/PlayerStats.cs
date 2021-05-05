@@ -114,6 +114,7 @@ public class PlayerStats : MonoBehaviour
 
     public void gameOver()
     {
+        GameObject.Find("GameOver").SetActive(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
