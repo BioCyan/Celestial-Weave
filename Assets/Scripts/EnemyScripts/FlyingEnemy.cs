@@ -5,7 +5,8 @@ using UnityEngine;
 public class FlyingEnemy : MonoBehaviour
 {
     public float health = 50f;
-    public float damage = 15f;
+    public float shootRate = 5f;
+    public float damage = 1f;
 
     [SerializeField] private GameObject laserTip;
     [SerializeField] private LineRenderer laser;
@@ -14,9 +15,10 @@ public class FlyingEnemy : MonoBehaviour
     private GameObject player;
 
     private float sightTime = 3f;
-    private float laserRange = 8f;
-    private bool isShooting = false;
+    private float laserRange = 10f;
+    private float nextShootTime = 0;
     private bool isAudio = false;
+    private bool isDamaging = false;
 
     void Awake()
     {
@@ -46,6 +48,11 @@ public class FlyingEnemy : MonoBehaviour
             if( sightTime <= 0f )
             {
                 ShootLaser();
+                if( Time.time > nextShootTime )
+                {
+                    damagePlayer();
+                    nextShootTime = Time.time + 1/shootRate;
+                }
                 // if theres no audio playing currently then play audio 
                 if( !(isAudio) )
                 {
@@ -59,12 +66,15 @@ public class FlyingEnemy : MonoBehaviour
             // Reset sight time, set audio to end and disable the laser
             sightTime = 3f;
             isAudio = false;
-            isShooting = false;
-            laser.enabled = false;
-            laser.enabled = false;
-            
+            laser.enabled = false;            
         }
 
+    }
+
+    private void damagePlayer()
+    {
+        isDamaging = true;
+        player.GetComponent<PlayerStats>().takeDamage(damage);
     }
 
     IEnumerator PlayAudio()
@@ -82,12 +92,10 @@ public class FlyingEnemy : MonoBehaviour
 
     private void ShootLaser()
     {
-        isShooting = true;
         laser.enabled = true;
         audio.enabled = true;
         laser.SetPosition(0, laserTip.transform.position);
         laser.SetPosition(1, player.transform.position);
-        //audio.Play();
     }
 
     private void Dead()
