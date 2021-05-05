@@ -30,6 +30,14 @@ CapsuleCollider:
   m_Height: 20
   m_Direction: 1
   m_Center: {x: 0, y: -3, z: 0}
+--- !u!33 &204976468
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678333957244695611}
+  m_Mesh: {fileID: 4889536061818514836, guid: 2aca26835158d617eb34a5344cc474f1, type: 3}
 --- !u!82 &1287339092
 AudioSource:
   m_ObjectHideFlags: 0
@@ -432,14 +440,6 @@ MonoBehaviour:
   damageSound: {fileID: 1287339098}
   healthBar: {fileID: 0}
   shieldBar: {fileID: 0}
---- !u!33 &204976468
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1678333957244695611}
-  m_Mesh: {fileID: 4889536061818514836, guid: 2aca26835158d617eb34a5344cc474f1, type: 3}
 --- !u!1 &6655427214743991572
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6655427214743991572}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.2999997, z: 0}
+  m_LocalPosition: {x: -0, y: 4.62, z: 1.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2018021080471170689}
@@ -497,7 +497,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -588,17 +588,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2aca26835158d617eb34a5344cc474f1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.18073043
+      value: -13.212529
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2aca26835158d617eb34a5344cc474f1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.47
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2aca26835158d617eb34a5344cc474f1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5447065
+      value: -45.135338
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2aca26835158d617eb34a5344cc474f1,
         type: 3}
@@ -638,7 +638,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2aca26835158d617eb34a5344cc474f1,
         type: 3}
       propertyPath: m_Name
-      value: Robo Player
+      value: Robo Player Finished
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2aca26835158d617eb34a5344cc474f1,
         type: 3}

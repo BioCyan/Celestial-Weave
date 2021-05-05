@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuButton : MonoBehaviour
 {
@@ -22,12 +23,21 @@ public class MenuButton : MonoBehaviour
 				animator.SetBool ("pressed", true);
 				if (thisIndex == 0)
 				{
+					if (SceneManager.GetActiveScene().buildIndex == 0)
+						SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+					else
+						SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 					Time.timeScale = 1;
-					menuButtonController.newGame();
+					//enuButtonController.newGame();
+					
 				}
 				else if (thisIndex == 1)
 				{
 					//pauseController.TogglePause();
+					if (SceneManager.GetActiveScene().buildIndex == 0)
+						OpenOptions();
+					else
+						SceneManager.LoadScene("startMenu");
 				}
 				else if (thisIndex == 2)
 				{
@@ -46,6 +56,16 @@ public class MenuButton : MonoBehaviour
 		}
 
 	}
+
+	// NOTICE:: JOHN H!!!
+	private void OpenOptions()
+    {
+		// Not sure how you had intented to set this set up.
+		// Complete this function.
+		// Should include:
+			// Difficulty = {Easy, Medium, Hard}
+			// LevelSelect = {1, 2, 3} by index where 0 = startmenu
+    }
 
 	public void mouseOver()
 	{

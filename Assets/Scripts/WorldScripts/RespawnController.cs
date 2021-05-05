@@ -16,6 +16,9 @@ public class RespawnController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
+        {
             other.transform.position = checkPointLocation.transform.position;
+            other.GetComponent<PlayerStats>().takeDamage(50);
+        }
     }
 }

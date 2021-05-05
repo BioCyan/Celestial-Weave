@@ -121,7 +121,7 @@ public class PlayerStats : MonoBehaviour
 
     public void gameOver()
     {
-
+        Time.timeScale = 0;
         gameover.SetActive(true);
     }
 
