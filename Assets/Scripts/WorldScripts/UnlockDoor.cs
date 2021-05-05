@@ -14,6 +14,8 @@ public class UnlockDoor : MonoBehaviour
     private Vector3 keyStartLocation;
     public Vector3 targetScale = new Vector3(0f,0f,0f);
     public bool invertedScale = false;
+    public bool instantScale = false;
+    public float resetDistanceModifier = 1.5f;  // This distance multiplied by the start separation between the cube and plate
 
     private void Start()
     {
@@ -21,7 +23,7 @@ public class UnlockDoor : MonoBehaviour
         //ScaleToTarget(new Vector3(2.0f, 0f, 1f), 2.5f);
         keyStartLocation = KeyObject.transform.position;
         startScale = DoorObject.transform.localScale;
-        keyResetDistance = 1.5f * (keyStartLocation - gameObject.transform.position).magnitude;
+        keyResetDistance = resetDistanceModifier * (keyStartLocation - gameObject.transform.position).magnitude;
         gameObject.GetComponent<BoxCollider>().isTrigger = true;
         if (invertedScale)  // Swap Vectors
         {
@@ -50,31 +52,43 @@ public class UnlockDoor : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("OPEN SESAME");
-        if (other.gameObject == KeyObject)
+        if (other.gameObject == KeyObject || other.gameObject.tag == "Key")
         {
             DoorObject.GetComponent<AudioSource>().Play();
             StartCoroutine(ScaleToTargetCoroutine(targetScale, 2.5f));
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if((other.gameObject == KeyObject || other.gameObject.tag == "Key") && instantScale)
+            DoorObject.transform.localScale = targetScale;
+    }
+
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == KeyObject)
+        if (other.gameObject == KeyObject || other.gameObject.tag == "Key")
             StartCoroutine(ScaleToTargetCoroutine(startScale, 2.5f));
     }
 
     private IEnumerator ScaleToTargetCoroutine(Vector3 targetScale, float duration)
     {
         Vector3 startScale = DoorObject.transform.localScale;  // Initial scale of door
-        float timer = 0.0f;                                     // Initiate timer
-        while (timer < duration)
+        if (instantScale)
+            DoorObject.transform.localScale = targetScale;
+
+        else
         {
-            timer += Time.deltaTime;
-            float t = timer / duration;
-            //smoother step algorithm
-            t = t * t * t * (t * (6f * t - 15f) + 10f);
-            DoorObject.transform.localScale = Vector3.Lerp(startScale, targetScale, t);
-            yield return null;
+            float timer = 0.0f;                                     // Initiate timer
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                float t = timer / duration;
+                //smoother step algorithm
+                t = t * t * t * (t * (6f * t - 15f) + 10f);
+                DoorObject.transform.localScale = Vector3.Lerp(startScale, targetScale, t);
+                yield return null;
+            }
         }
         yield return null;
     }

@@ -8,6 +8,7 @@ TagManager:
   - Right Portal
   - Platform
   - Enemy
+  - Key
   layers:
   - Default
   - TransparentFX

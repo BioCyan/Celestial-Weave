@@ -12,6 +12,8 @@ public class PlatformAttach : MonoBehaviour
     private void Start()
     {
         oldPosition = transform.position;
+        if (Player == null)
+            Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void FixedUpdate()

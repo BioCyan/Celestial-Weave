@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GravityController : MonoBehaviour
 {
-    public Vector3 gravityForce = new Vector3(0f, -9.8f, 0f);
+    public float height = 10f;
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("JUMP");
-        other.gameObject.GetComponent<Rigidbody>().AddForce(gravityForce);
+        float force = Mathf.Sqrt(2 * height * 9.8f) * other.GetComponent<Rigidbody>().mass;
+        other.gameObject.GetComponent<Rigidbody>().AddForce(force * transform.up, ForceMode.Impulse);
+        GetComponent<AudioSource>().Play();
     }
 }
