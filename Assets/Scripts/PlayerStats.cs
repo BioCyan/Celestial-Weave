@@ -34,6 +34,9 @@ public class PlayerStats : MonoBehaviour
         health = maxHealth;
         shield = maxShield;
         extraLife = 2;
+
+		healthBar = GameObject.Find("Health Foreground").GetComponent<Image>();
+		shieldBar = GameObject.Find("Shield Foreground").GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -77,8 +80,8 @@ public class PlayerStats : MonoBehaviour
                     newHealth = 0;
                 health = newHealth;
             }
-            damageSound.Play();
-            imune = true;
+            //damageSound.Play();
+            //imune = true;
             lastHit = Time.time;
         }
     }
@@ -120,7 +123,6 @@ public class PlayerStats : MonoBehaviour
 
     public void Display_HealthStats(float healthValue)
     {
-
         healthValue /= maxHealth;
 
         healthBar.fillAmount = healthValue;
@@ -128,7 +130,6 @@ public class PlayerStats : MonoBehaviour
 
     public void Display_ShieldStats(float shieldValue)
     {
-
         shieldValue /= maxShield;
 
         shieldBar.fillAmount = shieldValue;
