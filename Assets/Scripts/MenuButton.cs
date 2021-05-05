@@ -51,15 +51,7 @@ public class MenuButton : MonoBehaviour
 				{
 					SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 				}
-				if (thisIndex == 4)
-				{
-					
-				}
-
-				if (thisIndex == 5)
-				{
-					menuButtonController.quit();
-				}
+				
 
 			}
 			else if (animator.GetBool ("pressed"))
