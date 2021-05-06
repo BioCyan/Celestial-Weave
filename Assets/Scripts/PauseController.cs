@@ -8,7 +8,7 @@ public class PauseController : MonoBehaviour
 	public bool paused = false;
 
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.P)) {
+		if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) {
 			TogglePause();
 		}
 	}

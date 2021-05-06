@@ -41,7 +41,8 @@ public class PauseMenuButton : MonoBehaviour
 				}
 				else if (thisIndex == 2)
 				{
-					SceneManager.LoadScene(0);
+					menuButtonController.quit();
+					//SceneManager.LoadScene(0);
 				}
 
 			
